@@ -16,82 +16,20 @@ const shirtColors = [
   { name: "Sand Beige", value: "#c8b896" },
 ];
 
-const PLACEMENT_CLASSES: Record<string, string> = {
-  "Front Center": "inset-x-1/4 top-[28%] bottom-[30%]",
-  "Back Center": "inset-x-1/4 top-[28%] bottom-[30%]",
-  "Left Chest": "left-[18%] top-[22%] w-[28%] h-[22%]",
-  "Right Sleeve": "right-[14%] top-[22%] w-[26%] h-[20%]",
+const MOCKUP_MAP: Record<string, string> = {
+  "Classic Crew Neck": "/mockup-classic-white.jpg",
+  "Oversized Drop Shoulder": "/mockup-oversized.jpg",
+  "Polo Shirt": "/mockup-polo.jpg",
+  "Hoodie": "/mockup-hoodie.jpg",
+  "Tote Bag": "/mockup-tote.jpg",
 };
 
-function ShirtSvg({ color, type, className }: { color: string; type: string; className?: string }) {
-  const stroke = "rgba(255,255,255,0.15)";
-  const highlight = "rgba(255,255,255,0.12)";
-
-  if (type === "Tote Bag") {
-    return (
-      <svg viewBox="0 0 400 420" className={className} xmlns="http://www.w3.org/2000/svg">
-        <path d="M120 80 L120 360 Q120 390 150 390 L250 390 Q280 390 280 360 L280 80 Z" fill={color} stroke={stroke} strokeWidth="2" />
-        <path d="M120 80 Q200 40 280 80" fill="none" stroke={stroke} strokeWidth="2" />
-        <path d="M120 110 Q200 70 280 110" fill="none" stroke={highlight} strokeWidth="2" />
-        <rect x="140" y="140" width="120" height="160" rx="4" fill="none" stroke={stroke} strokeWidth="1.5" />
-        <line x1="200" y1="140" x2="200" y2="300" stroke={stroke} strokeWidth="1" />
-        <line x1="140" y1="220" x2="260" y2="220" stroke={stroke} strokeWidth="1" />
-      </svg>
-    );
-  }
-
-  if (type === "Hoodie") {
-    return (
-      <svg viewBox="0 0 400 460" className={className} xmlns="http://www.w3.org/2000/svg">
-        <path d="M110 90 L110 380 Q110 410 140 410 L260 410 Q290 410 290 380 L290 90 Q290 60 260 60 L240 60 L220 90 L180 90 L160 60 L140 60 Q110 60 110 90 Z" fill={color} stroke={stroke} strokeWidth="2" />
-        <path d="M160 60 L180 90 L220 90 L240 60" fill={highlight} />
-        <path d="M190 90 L190 140 M210 90 L210 140" stroke={stroke} strokeWidth="1.5" />
-        <path d="M130 140 Q200 180 270 140" fill="none" stroke={stroke} strokeWidth="1.5" />
-        <path d="M110 90 L80 110 L80 150 L110 130 Z" fill={color} stroke={stroke} strokeWidth="2" />
-        <path d="M290 90 L320 110 L320 150 L290 130 Z" fill={color} stroke={stroke} strokeWidth="2" />
-      </svg>
-    );
-  }
-
-  if (type === "Polo Shirt") {
-    return (
-      <svg viewBox="0 0 400 440" className={className} xmlns="http://www.w3.org/2000/svg">
-        <path d="M120 80 L120 370 Q120 400 150 400 L250 400 Q280 400 280 370 L280 80 Q280 60 250 60 L230 80 L200 110 L170 80 L150 60 Q120 60 120 80 Z" fill={color} stroke={stroke} strokeWidth="2" />
-        <path d="M200 110 L200 180 L170 160" fill="none" stroke={stroke} strokeWidth="1.5" />
-        <path d="M200 110 L200 180 L230 160" fill="none" stroke={stroke} strokeWidth="1.5" />
-        <path d="M170 130 L200 160 L230 130" fill="none" stroke={highlight} strokeWidth="1.5" />
-        <line x1="200" y1="160" x2="200" y2="260" stroke={stroke} strokeWidth="1" />
-        <line x1="170" y1="220" x2="230" y2="220" stroke={stroke} strokeWidth="1" />
-        <line x1="170" y1="260" x2="230" y2="260" stroke={stroke} strokeWidth="1" />
-      </svg>
-    );
-  }
-
-  if (type === "Oversized Drop Shoulder") {
-    return (
-      <svg viewBox="0 0 420 440" className={className} xmlns="http://www.w3.org/2000/svg">
-        <path d="M100 90 L100 370 Q100 400 130 400 L290 400 Q320 400 320 370 L320 90 Q320 50 280 50 L250 80 L170 80 L140 50 Q100 50 100 90 Z" fill={color} stroke={stroke} strokeWidth="2" />
-        <path d="M100 90 L60 110 L60 160 L100 140 Z" fill={color} stroke={stroke} strokeWidth="2" />
-        <path d="M320 90 L360 110 L360 160 L320 140 Z" fill={color} stroke={stroke} strokeWidth="2" />
-        <path d="M170 80 L200 130 L250 80" fill={highlight} />
-        <line x1="200" y1="130" x2="200" y2="280" stroke={stroke} strokeWidth="1" />
-        <line x1="140" y1="220" x2="260" y2="220" stroke={stroke} strokeWidth="1" />
-        <line x1="140" y1="260" x2="260" y2="260" stroke={stroke} strokeWidth="1" />
-      </svg>
-    );
-  }
-
-  return (
-    <svg viewBox="0 0 400 440" className={className} xmlns="http://www.w3.org/2000/svg">
-      <path d="M120 80 L120 370 Q120 400 150 400 L250 400 Q280 400 280 370 L280 80 Q280 60 250 60 L230 80 L200 110 L170 80 L150 60 Q120 60 120 80 Z" fill={color} stroke={stroke} strokeWidth="2" />
-      <path d="M170 80 L200 110 L230 80" fill={highlight} />
-      <line x1="200" y1="110" x2="200" y2="300" stroke={stroke} strokeWidth="1" />
-      <line x1="140" y1="200" x2="260" y2="200" stroke={stroke} strokeWidth="1" />
-      <line x1="140" y1="240" x2="260" y2="240" stroke={stroke} strokeWidth="1" />
-      <line x1="140" y1="280" x2="260" y2="280" stroke={stroke} strokeWidth="1" />
-    </svg>
-  );
-}
+const PLACEMENT_CLASSES: Record<string, string> = {
+  "Front Center": "inset-x-[18%] top-[26%] bottom-[28%]",
+  "Back Center": "inset-x-[18%] top-[26%] bottom-[28%]",
+  "Left Chest": "left-[16%] top-[20%] w-[30%] h-[24%]",
+  "Right Sleeve": "right-[12%] top-[20%] w-[28%] h-[22%]",
+};
 
 export default function CustomDesign() {
   const [step, setStep] = useState(1);
@@ -148,6 +86,8 @@ export default function CustomDesign() {
   const handleSubmit = () => {
     setSubmitted(true);
   };
+
+  const mockupSrc = MOCKUP_MAP[shirtType] || MOCKUP_MAP["Classic Crew Neck"];
 
   if (submitted) {
     return (
@@ -420,9 +360,13 @@ export default function CustomDesign() {
             <h3 className="text-white/50 text-xs uppercase tracking-widest mb-5 text-center" style={{ fontFamily: "Inter, sans-serif" }}>
               Live Preview
             </h3>
-            <div className="relative aspect-[3/4] rounded-3xl overflow-hidden bg-[#111] border border-white/[0.08] flex items-center justify-center p-6">
-              <div className="relative w-full max-w-[360px]">
-                <ShirtSvg color={shirtColor.value} type={shirtType} className="w-full h-auto drop-shadow-2xl" />
+            <div className="relative rounded-3xl overflow-hidden bg-[#111] border border-white/[0.08] flex items-center justify-center p-8">
+              <div className="relative w-full max-w-[520px]">
+                <img
+                  src={mockupSrc}
+                  alt="T-shirt mockup"
+                  className="w-full h-auto drop-shadow-2xl"
+                />
 
                 {previewUrl && (
                   <div
@@ -433,7 +377,7 @@ export default function CustomDesign() {
                       alt="Your design"
                       className="max-w-full max-h-full object-contain"
                       style={{
-                        transform: "rotate(-2deg) scale(0.92)",
+                        transform: "rotate(-2deg) scale(0.95)",
                         filter: "contrast(1.05) saturate(0.9)",
                         opacity: 0.92,
                       }}
@@ -443,7 +387,7 @@ export default function CustomDesign() {
 
                 {!previewUrl && (
                   <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 pointer-events-none">
-                    <Shirt size={64} className="text-white/10" />
+                    <Shirt size={72} className="text-white/10" />
                     <p className="text-white/20 text-sm text-center max-w-32" style={{ fontFamily: "Inter, sans-serif" }}>
                       Upload a design to see preview
                     </p>
