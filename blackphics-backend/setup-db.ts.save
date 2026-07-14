@@ -1,0 +1,182 @@
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
+
+async function setupDatabase() {
+  try {
+    console.log('Starting database setup...');
+    
+    // Create tables using raw SQL
+    const schema = `
+-- Create enums
+CREATE TYPE IF NOT EXISTS "Badge" AS ENUM ('new', 'sale', 'hot');
+CREATE TYPE IF NOT EXISTS "OrderStatus" AS ENUM ('pending', 'paid', 'shipped', 'delivered', 'cancelled');
+
+-- Create User table
+CREATE TABLE IF NOT EXISTS "User" (
+    "id" SERIAL NOT NULL PRIMARY KEY,
+    "email" TEXT NOT NULL UNIQUE,
+    "passwordHash" TEXT NOT NULL,
+    "name" TEXT,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Create Product table
+CREATE TABLE IF NOT EXISTS "Product" (
+    "id" SERIAL NOT NULL PRIMARY KEY,
+    "name" TEXT NOT NULL,
+    "slug" TEXT NOT NULL UNIQUE,
+    "price" INTEGER NOT NULL,
+' || true && sleep 2 && lsof -ti :4000 | xargs kill -9 2>/dev/null || 
+    true && sleep 1 && echo "Processes cleared" "originalPrice" INTEGER, 
+    "category" TEXT NOT NULL, "colors" TEXT[], "sizes" TEXT[], "image" 
+    TEXT NOT NULL, "images" TEXT[], "badge" "Badge", "description" TEXT 
+    NOT NULL, "rating" DOUBLE PRECISION NOT NULL DEFAULT 0, 
+    "reviewCount" INTEGER NOT NULL DEFAULT 0, "stock" INTEGER NOT NULL 
+    DEFAULT 0
+ npx tsc && node dist/server.js &
+ npx prisma migrate dev --name init
+ npx prisma db push
+ PRISMA_SKIP_ENGINE_CHECK=true npx prisma db push --skip-generate 2>&1 | cat
+ psql -U blackphics -d blackphics -c "
+CREATE TABLE IF NOT EXISTS \"_prisma_migrations\" (
+    id VARCHAR(36) PRIMARY KEY,
+    checksum VARCHAR(64) NOT NULL,
+    finished_at TIMESTAMPTZ,
+    execution_time BIGINT NOT NULL,
+    started_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    logs TEXT
+);
+
+CREATE TYPE IF NOT EXISTS \"Badge\" AS ENUM ('new', 'sale', 'hot');
+CREATE TYPE IF NOT EXISTS \"OrderStatus\" AS ENUM ('pending', 'paid', 'shipped', 'delivered', 'cancelled');
+
+CREATE TABLE IF NOT EXISTS \"User\" (
+    id SERIAL PRIMARY KEY,
+    email TEXT UNIQUE NOT NULL,
+    \"passwordHash\" TEXT NOT NULL,
+    name TEXT,
+    \"createdAt\" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS \"Product\" (
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    slug TEXT UNIQUE NOT NULL,
+    price INTEGER NOT NULL,
+    \"originalPrice\" INTEGER,
+    category TEXT NOT NULL,
+    colors TEXT[],
+    sizes TEXT[],
+    image TEXT NOT NULL,
+    images TEXT[],
+    badge \"Badge\",
+    description TEXT NOT NULL,
+    rating DOUBLE PRECISION DEFAULT 0,
+    \"reviewCount\" INTEGER DEFAULT 0,
+    stock INTEGER DEFAULT 0
+);
+
+CREATE TABLE IF NOT EXISTS \"CartItem\" (
+    id SERIAL PRIMARY KEY,
+    \"userId\" INTEGER NOT NULL REFERENCES \"User\"(id) ON DELETE CASCADE,
+    \"productId\" INTEGER NOT NULL REFERENCES \"Product\"(id) ON DELETE CASCADE,
+    quantity INTEGER NOT NULL,
+    size TEXT,
+    color TEXT,
+    \"createdAt\" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(\"userId\", \"productId\", size, color)
+);
+
+CREATE TABLE IF NOT EXISTS \"Order\" (
+    id SERIAL PRIMARY KEY,
+    \"userId\" INTEGER NOT NULL REFERENCES \"User\"(id) ON DELETE CASCADE,
+    status \"OrderStatus\" DEFAULT 'pending',
+    \"totalPrice\" INTEGER NOT NULL,
+    address TEXT,
+    city TEXT,
+    phone TEXT,
+    \"createdAt\" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    \"updatedAt\" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS \"OrderItem\" (
+    id SERIAL PRIMARY KEY,
+    \"orderId\" INTEGER NOT NULL REFERENCES \"Order\"(id) ON DELETE CASCADE,
+    \"productId\" INTEGER NOT NULL REFERENCES \"Product\"(id) ON DELETE CASCADE,
+    quantity INTEGER NOT NULL,
+    price INTEGER NOT NULL,
+    size TEXT,
+    color TEXT
+);
+" 2>&1
+ psql -U blackphics -d blackphics -f /tmp/init_schema.sql
+ PAGER="" psql -U blackphics -d blackphics -f /tmp/init_schema.sql 2>&1 | head -100
+ export PAGER=cat LESS='' && psql -U blackphics -d blackphics < /tmp/init_schema.sql
+ bash --version
+ pkill -9 psql; pkill -9 less; pkill -9 more; sleep 1; echo "Killed pagers"
+ npm run dev 2>&1 &
+);
+
+-- Create CartItem table
+CREATE TABLE IF NOT EXISTS "CartItem" (
+    "id" SERIAL NOT NULL PRIMARY KEY,
+    "userId" INTEGER NOT NULL,
+    "productId" INTEGER NOT NULL,
+    "quantity" INTEGER NOT NULL,
+    "size" TEXT,
+    "color" TEXT,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE("userId", "productId", "size", "color"),
+    CONSTRAINT "CartItem_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT "CartItem_productId_fkey" FOREIGN KEY ("productId") REFERENCES "Product" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- Create Order table
+CREATE TABLE IF NOT EXISTS "Order" (
+    "id" SERIAL NOT NULL PRIMARY KEY,
+    "userId" INTEGER NOT NULL,
+    "status" "OrderStatus" NOT NULL DEFAULT 'pending',
+    "totalPrice" INTEGER NOT NULL,
+    "address" TEXT,
+    "city" TEXT,
+    "phone" TEXT,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT "Order_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- Create OrderItem table
+CREATE TABLE IF NOT EXISTS "OrderItem" (
+    "id" SERIAL NOT NULL PRIMARY KEY,
+    "orderId" INTEGER NOT NULL,
+    "productId" INTEGER NOT NULL,
+    "quantity" INTEGER NOT NULL,
+    "price" INTEGER NOT NULL,
+    "size" TEXT,
+    "color" TEXT,
+    CONSTRAINT "OrderItem_orderId_fkey" FOREIGN KEY ("orderId") REFERENCES "Order" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT "OrderItem_productId_fkey" FOREIGN KEY ("productId") REFERENCES "Product" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+);
+    `;
+
+    // Split and execute statements
+    const statements = schema.split(';').filter(s => s.trim());
+    for (const statement of statements) {
+      if (statement.trim()) {
+        await prisma.$executeRawUnsafe(statement.trim());
+        console.log('✓ Executed: ' + statement.trim().split('\n')[0].substring(0, 50) + '...');
+      }
+    }
+
+    console.log('✓ Database schema created successfully!');
+    process.exit(0);
+  } catch (error) {
+    console.error('✗ Error setting up database:', error);
+    process.exit(1);
+  } finally {
+    await prisma.$disconnect();
+  }
+}
+
+setupDatabase();

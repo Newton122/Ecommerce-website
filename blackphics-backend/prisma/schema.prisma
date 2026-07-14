@@ -1,0 +1,131 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Badge {
+  new
+  sale
+  hot
+}
+
+enum OrderStatus {
+  pending
+  paid
+  shipped
+  delivered
+  cancelled
+}
+
+model User {
+  id           Int      @id @default(autoincrement())
+  email        String   @unique
+  passwordHash String
+  name         String?
+  // Role controls access to admin routes. New users default to "customer".
+  role         String   @default("customer")
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+
+  cartItems CartItem[]
+  orders    Order[]
+  reviews   Review[]
+}
+
+model Product {
+  id            Int      @id @default(autoincrement())
+  name          String
+  slug          String   @unique
+  price         Int
+  originalPrice Int?
+  category      String
+  colors        String[]
+  sizes         String[]
+  image         String
+  images        String[]
+  badge         Badge?
+  description   String
+  rating        Float    @default(0)
+  reviewCount   Int      @default(0)
+  stock         Int      @default(0)
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  cartItems  CartItem[]
+  orderItems OrderItem[]
+  collections Collection[]
+  reviews    Review[]
+}
+
+model Collection {
+  id        Int      @id @default(autoincrement())
+  name      String
+  slug      String   @unique
+  image     String?
+  createdAt DateTime @default(now())
+
+  products Product[]
+}
+
+model Review {
+  id        Int      @id @default(autoincrement())
+  productId Int
+  userId    Int?
+  rating    Int
+  comment   String
+  author    String
+  createdAt DateTime @default(now())
+
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  user    User?   @relation(fields: [userId], references: [id])
+
+  @@index([productId])
+  @@index([userId])
+}
+
+model CartItem {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  productId Int
+  quantity  Int      @default(1)
+  size      String?
+  color     String?
+  createdAt DateTime @default(now())
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, productId, size, color])
+}
+
+model Order {
+  id         Int         @id @default(autoincrement())
+  userId     Int
+  status     OrderStatus @default(pending)
+  totalPrice Int
+  address    String
+  city       String
+  phone      String
+  createdAt  DateTime    @default(now())
+
+  user  User        @relation(fields: [userId], references: [id])
+  items OrderItem[]
+}
+
+model OrderItem {
+  id        Int    @id @default(autoincrement())
+  orderId   Int
+  productId Int
+  quantity  Int
+  price     Int
+  size      String?
+  color     String?
+
+  order   Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id])
+}
