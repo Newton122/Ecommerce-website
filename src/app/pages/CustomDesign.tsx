@@ -4,6 +4,8 @@ import { useState, useRef } from "react";
 import { useEffect } from "react";
 import { Upload, ArrowRight, Check, RefreshCw, Shirt, MapPin, ChevronLeft, ChevronRight, X, RotateCw, ZoomIn, ZoomOut } from "lucide-react";
 import Link from "next/link";
+import { useAuth } from "../context/AuthContext";
+import { useNotifications } from "../context/NotificationContext";
 
 const shirtTypes = ["Classic Crew Neck", "Oversized Drop Shoulder", "Polo Shirt", "Hoodie", "Tote Bag"];
 const placements = ["Front Center", "Back Center", "Left Chest", "Right Sleeve"];
@@ -67,6 +69,8 @@ const MOCKUP_COLORS = [
 ];
 
 export default function CustomDesign() {
+  const { token } = useAuth();
+  const { refresh: refreshNotifications } = useNotifications();
   const [step, setStep] = useState(1);
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -83,6 +87,7 @@ export default function CustomDesign() {
   const [dragStart, setDragStart] = useState<{ x: number; y: number; posX: number; posY: number } | null>(null);
   const [submitted, setSubmitted] = useState(false);
   const [draggingUpload, setDraggingUpload] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
   const previewContainerRef = useRef<HTMLDivElement>(null);
 
@@ -127,8 +132,35 @@ export default function CustomDesign() {
     if (file) handleFile(file);
   };
 
-  const handleSubmit = () => {
-    setSubmitted(true);
+  const handleSubmit = async () => {
+    setSubmitting(true);
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "/api";
+      const response = await fetch(`${apiUrl}/design-requests`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
+        body: JSON.stringify({
+          shirtType,
+          shirtColor: shirtColor.name,
+          placement,
+          viewSide,
+          designImage: previewUrl,
+          mockupImage: mockupSrc,
+        }),
+      });
+
+      if (response.ok) {
+        await refreshNotifications();
+      }
+    } catch (error) {
+      console.error("Failed to submit design request:", error);
+    } finally {
+      setSubmitting(false);
+      setSubmitted(true);
+    }
   };
 
   const sideMockups = MOCKUP_MAP[shirtType] || MOCKUP_MAP["Classic Crew Neck"];
@@ -180,11 +212,16 @@ export default function CustomDesign() {
             <Check size={36} className="text-primary" />
           </div>
           <h2 className="text-3xl font-extrabold text-white mb-3" style={{ fontFamily: "Manrope, sans-serif" }}>
-            Order Submitted!
+            Design Request Submitted!
           </h2>
-          <p className="text-white/60 text-base mb-2" style={{ fontFamily: "Inter, sans-serif" }}>
+          <p className="text-white/60 text-base mb-4" style={{ fontFamily: "Inter, sans-serif" }}>
             We&apos;ve received your custom design request.
           </p>
+          {previewUrl && (
+            <div className="mb-6 inline-block rounded-2xl border border-white/10 bg-card/80 p-3">
+              <img src={previewUrl} alt="Submitted design" className="max-h-48 max-w-full object-contain rounded-xl" />
+            </div>
+          )}
           <p className="text-white/40 text-sm mb-8" style={{ fontFamily: "Inter, sans-serif" }}>
             Our team will reach out via WhatsApp within 24 hours to confirm details and pricing.
           </p>

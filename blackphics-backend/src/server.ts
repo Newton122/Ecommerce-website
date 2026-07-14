@@ -15,6 +15,7 @@ import usersRoutes from "./routes/users.routes.js";
 import promoRoutes from "./routes/promo.routes.js";
 import notificationsRoutes from "./routes/notifications.routes.js";
 import profileRoutes from "./routes/profile.routes.js";
+import designRequestsRoutes from "./routes/designRequests.routes.js";
 import { prisma } from "./lib/prisma.js";
 
 const app = express();
@@ -79,6 +80,7 @@ app.use("/api/admin/orders", ordersWriteRoutes);
 app.use("/api/admin/users", usersRoutes);
 app.use("/api/admin/promo", promoRoutes);
 app.use("/api/notifications", notificationsRoutes);
+app.use("/api/design-requests", designRequestsRoutes);
 app.use("/api/upload", uploadRoutes);
 app.use("/api/users/me", profileRoutes);
 

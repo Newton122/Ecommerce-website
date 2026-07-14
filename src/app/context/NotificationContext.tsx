@@ -4,19 +4,20 @@ import { createContext, useContext, useEffect, useState, ReactNode } from "react
 import { useAuth } from "./AuthContext";
 
 export interface AppNotification {
-  id: number;
+  id: string;
   title: string;
   message: string;
   time: string;
-  type: "order" | "status" | "info";
+  type: "order" | "status" | "info" | "design";
   href?: string;
   read?: boolean;
+  image?: string;
 }
 
 interface NotificationContextType {
   notifications: AppNotification[];
   unreadCount: number;
-  markAsRead: (id: number) => void;
+  markAsRead: (id: string) => void;
   markAllAsRead: () => void;
   refresh: () => void;
 }
@@ -57,7 +58,7 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
     return () => clearInterval(t);
   }, [user]);
 
-  const markAsRead = (id: number) => {
+  const markAsRead = (id: string) => {
     setNotifications((prev) => prev.map((n) => (n.id === id ? { ...n, read: true } : n)));
   };
 

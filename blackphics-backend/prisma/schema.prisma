@@ -129,3 +129,18 @@ model OrderItem {
   order   Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
   product Product @relation(fields: [productId], references: [id])
 }
+
+model DesignRequest {
+  id          Int      @id @default(autoincrement())
+  userId      Int?
+  userEmail   String?
+  userName    String?
+  shirtType   String
+  shirtColor  String
+  placement   String
+  viewSide    String?
+  designImage String
+  mockupImage String
+  status      String   @default("pending")
+  createdAt   DateTime @default(now())
+}
