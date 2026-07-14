@@ -2,7 +2,7 @@
 
 import { useState, useRef } from "react";
 import { useEffect } from "react";
-import { Upload, ArrowRight, Check, RefreshCw, Shirt, MapPin, ChevronLeft, ChevronRight } from "lucide-react";
+import { Upload, ArrowRight, Check, RefreshCw, Shirt, MapPin, ChevronLeft, ChevronRight, X, RotateCw, ZoomIn, ZoomOut } from "lucide-react";
 import Link from "next/link";
 
 const shirtTypes = ["Classic Crew Neck", "Oversized Drop Shoulder", "Polo Shirt", "Hoodie", "Tote Bag"];
@@ -16,26 +16,26 @@ const shirtColors = [
   { name: "Sand Beige", value: "#c8b896" },
 ];
 
-const MOCKUP_MAP: Record<string, { front: string; back: string }> = {
+const MOCKUP_MAP: Record<string, { front: string[]; back: string[] }> = {
   "Classic Crew Neck": {
-    front: "/mockup-classic-white.jpg",
-    back: "/mockup-classic-white.jpg",
+    front: ["/mockup-classic-white.jpg", "/mockup-classic-black.jpg"],
+    back: ["/mockup-classic-white.jpg", "/mockup-classic-black.jpg"],
   },
   "Oversized Drop Shoulder": {
-    front: "/mockup-oversized.jpg",
-    back: "/mockup-oversized.jpg",
+    front: ["/mockup-oversized.jpg"],
+    back: ["/mockup-oversized.jpg"],
   },
   "Polo Shirt": {
-    front: "/mockup-polo.jpg",
-    back: "/mockup-polo.jpg",
+    front: ["/mockup-polo.jpg"],
+    back: ["/mockup-polo.jpg"],
   },
   "Hoodie": {
-    front: "/mockup-hoodie.jpg",
-    back: "/mockup-hoodie.jpg",
+    front: ["/mockup-hoodie.jpg"],
+    back: ["/mockup-hoodie.jpg"],
   },
   "Tote Bag": {
-    front: "/mockup-tote.jpg",
-    back: "/mockup-tote.jpg",
+    front: ["/mockup-tote.jpg"],
+    back: ["/mockup-tote.jpg"],
   },
 };
 
@@ -54,9 +54,20 @@ export default function CustomDesign() {
   const [shirtColor, setShirtColor] = useState(shirtColors[0]);
   const [placement, setPlacement] = useState(placements[0]);
   const [viewSide, setViewSide] = useState<"front" | "back">("front");
+  const [mockupVariant, setMockupVariant] = useState(0);
+  const [designScale, setDesignScale] = useState(0.95);
+  const [designRotation, setDesignRotation] = useState(-2);
   const [submitted, setSubmitted] = useState(false);
   const [dragging, setDragging] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
+
+  const sideMockups = MOCKUP_MAP[shirtType] || MOCKUP_MAP["Classic Crew Neck"];
+  const mockupList = sideMockups[viewSide];
+  const mockupSrc = mockupList[Math.min(mockupVariant, mockupList.length - 1)];
+
+  useEffect(() => {
+    setMockupVariant(0);
+  }, [shirtType, viewSide]);
 
   const handleFile = (file: File) => {
     setUploadedFile(file);
@@ -102,8 +113,6 @@ export default function CustomDesign() {
   const handleSubmit = () => {
     setSubmitted(true);
   };
-
-  const mockupSrc = (MOCKUP_MAP[shirtType] || MOCKUP_MAP["Classic Crew Neck"])[viewSide];
 
   if (submitted) {
     return (
@@ -393,7 +402,7 @@ export default function CustomDesign() {
                       alt="Your design"
                       className="max-w-full max-h-full object-contain"
                       style={{
-                        transform: "rotate(-2deg) scale(0.95)",
+                        transform: `rotate(${designRotation}deg) scale(${designScale})`,
                         filter: "contrast(1.05) saturate(0.9)",
                         opacity: 0.92,
                       }}
@@ -427,6 +436,85 @@ export default function CustomDesign() {
               >
                 <ChevronRight size={18} />
               </button>
+
+              {mockupList.length > 1 && (
+                <div className="absolute top-3 left-1/2 -translate-x-1/2 flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setMockupVariant((v) => (v - 1 + mockupList.length) % mockupList.length)}
+                    className="inline-flex items-center justify-center rounded-full bg-black/60 text-white/80 hover:text-white border border-white/10 hover:border-white/30 backdrop-blur-sm transition-all w-8 h-8"
+                    aria-label="Previous mockup"
+                  >
+                    <ChevronLeft size={16} />
+                  </button>
+                  <span className="text-white/70 text-xs font-medium bg-black/60 border border-white/10 rounded-full px-3 py-1 backdrop-blur-sm">
+                    {mockupVariant + 1} / {mockupList.length}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setMockupVariant((v) => (v + 1) % mockupList.length)}
+                    className="inline-flex items-center justify-center rounded-full bg-black/60 text-white/80 hover:text-white border border-white/10 hover:border-white/30 backdrop-blur-sm transition-all w-8 h-8"
+                    aria-label="Next mockup"
+                  >
+                    <ChevronRight size={16} />
+                  </button>
+                </div>
+              )}
+
+              {previewUrl && (
+                <div className="absolute bottom-16 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-black/70 backdrop-blur-sm border border-white/10 rounded-full px-3 py-2">
+                  <button
+                    type="button"
+                    onClick={() => setDesignRotation((r) => r - 5)}
+                    className="inline-flex items-center justify-center rounded-full w-8 h-8 text-white/80 hover:text-white hover:bg-white/10 transition-colors"
+                    aria-label="Rotate left"
+                  >
+                    <RotateCw size={16} className="-scale-x-100" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setDesignRotation(0)}
+                    className="inline-flex items-center justify-center rounded-full w-8 h-8 text-white/80 hover:text-white hover:bg-white/10 transition-colors text-xs font-mono"
+                    aria-label="Reset rotation"
+                  >
+                    0°
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setDesignRotation((r) => r + 5)}
+                    className="inline-flex items-center justify-center rounded-full w-8 h-8 text-white/80 hover:text-white hover:bg-white/10 transition-colors"
+                    aria-label="Rotate right"
+                  >
+                    <RotateCw size={16} />
+                  </button>
+                  <div className="w-px h-5 bg-white/20 mx-1" />
+                  <button
+                    type="button"
+                    onClick={() => setDesignScale((s) => Math.max(0.3, +(s - 0.1).toFixed(2)))}
+                    className="inline-flex items-center justify-center rounded-full w-8 h-8 text-white/80 hover:text-white hover:bg-white/10 transition-colors"
+                    aria-label="Zoom out"
+                  >
+                    <ZoomOut size={16} />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setDesignScale((s) => Math.min(2.5, +(s + 0.1).toFixed(2)))}
+                    className="inline-flex items-center justify-center rounded-full w-8 h-8 text-white/80 hover:text-white hover:bg-white/10 transition-colors"
+                    aria-label="Zoom in"
+                  >
+                    <ZoomIn size={16} />
+                  </button>
+                  <div className="w-px h-5 bg-white/20 mx-1" />
+                  <button
+                    type="button"
+                    onClick={() => { setUploadedFile(null); setPreviewUrl(null); }}
+                    className="inline-flex items-center justify-center rounded-full w-8 h-8 text-white/80 hover:text-red-400 hover:bg-white/10 transition-colors"
+                    aria-label="Remove design"
+                  >
+                    <X size={16} />
+                  </button>
+                </div>
+              )}
 
               <div className="absolute bottom-4 left-4 right-4">
                 <div className="bg-black/70 backdrop-blur-sm border border-white/10 rounded-xl px-4 py-3">
