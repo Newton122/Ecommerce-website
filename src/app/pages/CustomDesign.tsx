@@ -16,55 +16,82 @@ const shirtColors = [
   { name: "Sand Beige", value: "#c8b896" },
 ];
 
-const MOCKUPS = {
-  "Classic Crew Neck": {
-    "Jet Black": "https://images.unsplash.com/photo-1618677603286-0ec56cb6e1b5?w=600&h=700&fit=crop&auto=format&sat=-100",
-    "Pure White": "https://images.unsplash.com/photo-1620799139507-2a76f79a2f4d?w=600&h=700&fit=crop&auto=format&sat=-100",
-    "Forest Green": "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=600&h=700&fit=crop&auto=format&sat=-100",
-    "Navy Blue": "https://images.unsplash.com/photo-1562157873-818bc0726f68?w=600&h=700&fit=crop&auto=format&sat=-100",
-    "Ash Gray": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=700&fit=crop&auto=format&sat=-100",
-    "Sand Beige": "https://images.unsplash.com/photo-1614975059258-4e5d4b0f0c1a?w=600&h=700&fit=crop&auto=format&sat=-100",
-  },
-  "Oversized Drop Shoulder": {
-    "Jet Black": "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&h=700&fit=crop&auto=format&sat=-100",
-    "Pure White": "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&h=700&fit=crop&auto=format&sat=-100",
-    "Forest Green": "https://images.unsplash.com/photo-1554568218-0f1715e72254?w=600&h=700&fit=crop&auto=format&sat=-100",
-    "Navy Blue": "https://images.unsplash.com/photo-1490578474895-699cd4e2cf59?w=600&h=700&fit=crop&auto=format&sat=-100",
-    "Ash Gray": "https://images.unsplash.com/photo-1567904847086-83a8e09cb9b7?w=600&h=700&fit=crop&auto=format&sat=-100",
-    "Sand Beige": "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=600&h=700&fit=crop&auto=format&sat=-100",
-  },
-  "Polo Shirt": {
-    "Jet Black": "https://images.unsplash.com/photo-1625910513413-5fc02f4098c3?w=600&h=700&fit=crop&auto=format&sat=-100",
-    "Pure White": "https://images.unsplash.com/photo-1625910513413-5fc02f4098c3?w=600&h=700&fit=crop&auto=format&sat=-100",
-    "Forest Green": "https://images.unsplash.com/photo-1625910513413-5fc02f4098c3?w=600&h=700&fit=crop&auto=format&sat=-100",
-    "Navy Blue": "https://images.unsplash.com/photo-1625910513413-5fc02f4098c3?w=600&h=700&fit=crop&auto=format&sat=-100",
-    "Ash Gray": "https://images.unsplash.com/photo-1625910513413-5fc02f4098c3?w=600&h=700&fit=crop&auto=format&sat=-100",
-    "Sand Beige": "https://images.unsplash.com/photo-1625910513413-5fc02f4098c3?w=600&h=700&fit=crop&auto=format&sat=-100",
-  },
-  "Hoodie": {
-    "Jet Black": "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&h=700&fit=crop&auto=format&sat=-100",
-    "Pure White": "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&h=700&fit=crop&auto=format&sat=-100",
-    "Forest Green": "https://images.unsplash.com/photo-1554568218-0f1715e72254?w=600&h=700&fit=crop&auto=format&sat=-100",
-    "Navy Blue": "https://images.unsplash.com/photo-1490578474895-699cd4e2cf59?w=600&h=700&fit=crop&auto=format&sat=-100",
-    "Ash Gray": "https://images.unsplash.com/photo-1567904847086-83a8e09cb9b7?w=600&h=700&fit=crop&auto=format&sat=-100",
-    "Sand Beige": "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=600&h=700&fit=crop&auto=format&sat=-100",
-  },
-  "Tote Bag": {
-    "Jet Black": "https://images.unsplash.com/photo-1544816155-12df9643f363?w=600&h=700&fit=crop&auto=format&sat=-100",
-    "Pure White": "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=600&h=700&fit=crop&auto=format&sat=-100",
-    "Forest Green": "https://images.unsplash.com/photo-1594223274512-ad4803739b7c?w=600&h=700&fit=crop&auto=format&sat=-100",
-    "Navy Blue": "https://images.unsplash.com/photo-1598532163257-ae3c6b2524b6?w=600&h=700&fit=crop&auto=format&sat=-100",
-    "Ash Gray": "https://images.unsplash.com/photo-1611651338412-9403f4293d2e?w=600&h=700&fit=crop&auto=format&sat=-100",
-    "Sand Beige": "https://images.unsplash.com/photo-1597484661973-ee6cd0b6482c?w=600&h=700&fit=crop&auto=format&sat=-100",
-  },
-};
-
 const PLACEMENT_CLASSES: Record<string, string> = {
   "Front Center": "inset-x-1/4 top-[28%] bottom-[30%]",
   "Back Center": "inset-x-1/4 top-[28%] bottom-[30%]",
   "Left Chest": "left-[18%] top-[22%] w-[28%] h-[22%]",
   "Right Sleeve": "right-[14%] top-[22%] w-[26%] h-[20%]",
 };
+
+function ShirtSvg({ color, type, className }: { color: string; type: string; className?: string }) {
+  const stroke = "rgba(255,255,255,0.15)";
+  const highlight = "rgba(255,255,255,0.12)";
+
+  if (type === "Tote Bag") {
+    return (
+      <svg viewBox="0 0 400 420" className={className} xmlns="http://www.w3.org/2000/svg">
+        <path d="M120 80 L120 360 Q120 390 150 390 L250 390 Q280 390 280 360 L280 80 Z" fill={color} stroke={stroke} strokeWidth="2" />
+        <path d="M120 80 Q200 40 280 80" fill="none" stroke={stroke} strokeWidth="2" />
+        <path d="M120 110 Q200 70 280 110" fill="none" stroke={highlight} strokeWidth="2" />
+        <rect x="140" y="140" width="120" height="160" rx="4" fill="none" stroke={stroke} strokeWidth="1.5" />
+        <line x1="200" y1="140" x2="200" y2="300" stroke={stroke} strokeWidth="1" />
+        <line x1="140" y1="220" x2="260" y2="220" stroke={stroke} strokeWidth="1" />
+      </svg>
+    );
+  }
+
+  if (type === "Hoodie") {
+    return (
+      <svg viewBox="0 0 400 460" className={className} xmlns="http://www.w3.org/2000/svg">
+        <path d="M110 90 L110 380 Q110 410 140 410 L260 410 Q290 410 290 380 L290 90 Q290 60 260 60 L240 60 L220 90 L180 90 L160 60 L140 60 Q110 60 110 90 Z" fill={color} stroke={stroke} strokeWidth="2" />
+        <path d="M160 60 L180 90 L220 90 L240 60" fill={highlight} />
+        <path d="M190 90 L190 140 M210 90 L210 140" stroke={stroke} strokeWidth="1.5" />
+        <path d="M130 140 Q200 180 270 140" fill="none" stroke={stroke} strokeWidth="1.5" />
+        <path d="M110 90 L80 110 L80 150 L110 130 Z" fill={color} stroke={stroke} strokeWidth="2" />
+        <path d="M290 90 L320 110 L320 150 L290 130 Z" fill={color} stroke={stroke} strokeWidth="2" />
+      </svg>
+    );
+  }
+
+  if (type === "Polo Shirt") {
+    return (
+      <svg viewBox="0 0 400 440" className={className} xmlns="http://www.w3.org/2000/svg">
+        <path d="M120 80 L120 370 Q120 400 150 400 L250 400 Q280 400 280 370 L280 80 Q280 60 250 60 L230 80 L200 110 L170 80 L150 60 Q120 60 120 80 Z" fill={color} stroke={stroke} strokeWidth="2" />
+        <path d="M200 110 L200 180 L170 160" fill="none" stroke={stroke} strokeWidth="1.5" />
+        <path d="M200 110 L200 180 L230 160" fill="none" stroke={stroke} strokeWidth="1.5" />
+        <path d="M170 130 L200 160 L230 130" fill="none" stroke={highlight} strokeWidth="1.5" />
+        <line x1="200" y1="160" x2="200" y2="260" stroke={stroke} strokeWidth="1" />
+        <line x1="170" y1="220" x2="230" y2="220" stroke={stroke} strokeWidth="1" />
+        <line x1="170" y1="260" x2="230" y2="260" stroke={stroke} strokeWidth="1" />
+      </svg>
+    );
+  }
+
+  if (type === "Oversized Drop Shoulder") {
+    return (
+      <svg viewBox="0 0 420 440" className={className} xmlns="http://www.w3.org/2000/svg">
+        <path d="M100 90 L100 370 Q100 400 130 400 L290 400 Q320 400 320 370 L320 90 Q320 50 280 50 L250 80 L170 80 L140 50 Q100 50 100 90 Z" fill={color} stroke={stroke} strokeWidth="2" />
+        <path d="M100 90 L60 110 L60 160 L100 140 Z" fill={color} stroke={stroke} strokeWidth="2" />
+        <path d="M320 90 L360 110 L360 160 L320 140 Z" fill={color} stroke={stroke} strokeWidth="2" />
+        <path d="M170 80 L200 130 L250 80" fill={highlight} />
+        <line x1="200" y1="130" x2="200" y2="280" stroke={stroke} strokeWidth="1" />
+        <line x1="140" y1="220" x2="260" y2="220" stroke={stroke} strokeWidth="1" />
+        <line x1="140" y1="260" x2="260" y2="260" stroke={stroke} strokeWidth="1" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg viewBox="0 0 400 440" className={className} xmlns="http://www.w3.org/2000/svg">
+      <path d="M120 80 L120 370 Q120 400 150 400 L250 400 Q280 400 280 370 L280 80 Q280 60 250 60 L230 80 L200 110 L170 80 L150 60 Q120 60 120 80 Z" fill={color} stroke={stroke} strokeWidth="2" />
+      <path d="M170 80 L200 110 L230 80" fill={highlight} />
+      <line x1="200" y1="110" x2="200" y2="300" stroke={stroke} strokeWidth="1" />
+      <line x1="140" y1="200" x2="260" y2="200" stroke={stroke} strokeWidth="1" />
+      <line x1="140" y1="240" x2="260" y2="240" stroke={stroke} strokeWidth="1" />
+      <line x1="140" y1="280" x2="260" y2="280" stroke={stroke} strokeWidth="1" />
+    </svg>
+  );
+}
 
 export default function CustomDesign() {
   const [step, setStep] = useState(1);
@@ -75,7 +102,6 @@ export default function CustomDesign() {
   const [placement, setPlacement] = useState(placements[0]);
   const [submitted, setSubmitted] = useState(false);
   const [dragging, setDragging] = useState(false);
-  const [mockupLoaded, setMockupLoaded] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
 
   const handleFile = (file: File) => {
@@ -122,10 +148,6 @@ export default function CustomDesign() {
   const handleSubmit = () => {
     setSubmitted(true);
   };
-
-  const mockupSrc =
-    (MOCKUPS as any)[shirtType]?.[shirtColor.name] ||
-    (MOCKUPS as any)["Classic Crew Neck"]["Jet Black"];
 
   if (submitted) {
     return (
@@ -398,67 +420,37 @@ export default function CustomDesign() {
             <h3 className="text-white/50 text-xs uppercase tracking-widest mb-5 text-center" style={{ fontFamily: "Inter, sans-serif" }}>
               Live Preview
             </h3>
-            <div className="relative aspect-[3/4] rounded-3xl overflow-hidden bg-[#111] border border-white/[0.08]">
-              {/* Base shirt image */}
-              <div className="absolute inset-0 bg-[#111]">
-                <img
-                  src={mockupSrc}
-                  alt="T-shirt mockup"
-                  onLoad={() => setMockupLoaded(true)}
-                  onError={() => setMockupLoaded(false)}
-                  className={`w-full h-full object-cover transition-opacity duration-500 ${mockupLoaded ? "opacity-100" : "opacity-0"}`}
-                  style={{ mixBlendMode: "multiply" }}
-                />
-                <div
-                  className="absolute inset-0 transition-opacity duration-500"
-                  style={{
-                    backgroundColor: shirtColor.value,
-                    opacity: mockupLoaded ? 0.85 : 1,
-                    mixBlendMode: "normal",
-                  }}
-                />
+            <div className="relative aspect-[3/4] rounded-3xl overflow-hidden bg-[#111] border border-white/[0.08] flex items-center justify-center p-6">
+              <div className="relative w-full max-w-[360px]">
+                <ShirtSvg color={shirtColor.value} type={shirtType} className="w-full h-auto drop-shadow-2xl" />
+
+                {previewUrl && (
+                  <div
+                    className={`absolute flex items-center justify-center ${PLACEMENT_CLASSES[placement] || PLACEMENT_CLASSES["Front Center"]}`}
+                  >
+                    <img
+                      src={previewUrl}
+                      alt="Your design"
+                      className="max-w-full max-h-full object-contain"
+                      style={{
+                        transform: "rotate(-2deg) scale(0.92)",
+                        filter: "contrast(1.05) saturate(0.9)",
+                        opacity: 0.92,
+                      }}
+                    />
+                  </div>
+                )}
+
+                {!previewUrl && (
+                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 pointer-events-none">
+                    <Shirt size={64} className="text-white/10" />
+                    <p className="text-white/20 text-sm text-center max-w-32" style={{ fontFamily: "Inter, sans-serif" }}>
+                      Upload a design to see preview
+                    </p>
+                  </div>
+                )}
               </div>
 
-              {/* Subtle texture overlay for realism */}
-              <div
-                className="absolute inset-0 pointer-events-none"
-                style={{
-                  backgroundImage:
-                    "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E\")",
-                  opacity: 0.4,
-                  mixBlendMode: "overlay",
-                }}
-              />
-
-              {/* Uploaded design overlay */}
-              {previewUrl && (
-                <div
-                  className={`absolute flex items-center justify-center ${PLACEMENT_CLASSES[placement] || PLACEMENT_CLASSES["Front Center"]}`}
-                >
-                  <img
-                    src={previewUrl}
-                    alt="Your design"
-                    className="max-w-full max-h-full object-contain transition-transform duration-200 hover:scale-105"
-                    style={{
-                      transform: "rotate(-2deg) scale(0.92)",
-                      filter: "contrast(1.05) saturate(0.9)",
-                      opacity: 0.92,
-                    }}
-                  />
-                </div>
-              )}
-
-              {/* Placeholder icon if no design */}
-              {!previewUrl && (
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
-                  <Shirt size={64} className="text-white/10" />
-                  <p className="text-white/20 text-sm text-center max-w-32" style={{ fontFamily: "Inter, sans-serif" }}>
-                    Upload a design to see preview
-                  </p>
-                </div>
-              )}
-
-              {/* Labels */}
               <div className="absolute bottom-4 left-4 right-4">
                 <div className="bg-black/70 backdrop-blur-sm border border-white/10 rounded-xl px-4 py-3">
                   <div className="flex items-center justify-between text-xs">
