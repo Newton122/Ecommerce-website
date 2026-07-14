@@ -2,7 +2,7 @@
 
 import { useState, useRef } from "react";
 import { useEffect } from "react";
-import { Upload, ArrowRight, Check, RefreshCw, Shirt, MapPin } from "lucide-react";
+import { Upload, ArrowRight, Check, RefreshCw, Shirt, MapPin, ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 
 const shirtTypes = ["Classic Crew Neck", "Oversized Drop Shoulder", "Polo Shirt", "Hoodie", "Tote Bag"];
@@ -16,12 +16,27 @@ const shirtColors = [
   { name: "Sand Beige", value: "#c8b896" },
 ];
 
-const MOCKUP_MAP: Record<string, string> = {
-  "Classic Crew Neck": "/mockup-classic-white.jpg",
-  "Oversized Drop Shoulder": "/mockup-oversized.jpg",
-  "Polo Shirt": "/mockup-polo.jpg",
-  "Hoodie": "/mockup-hoodie.jpg",
-  "Tote Bag": "/mockup-tote.jpg",
+const MOCKUP_MAP: Record<string, { front: string; back: string }> = {
+  "Classic Crew Neck": {
+    front: "/mockup-classic-white.jpg",
+    back: "/mockup-classic-white.jpg",
+  },
+  "Oversized Drop Shoulder": {
+    front: "/mockup-oversized.jpg",
+    back: "/mockup-oversized.jpg",
+  },
+  "Polo Shirt": {
+    front: "/mockup-polo.jpg",
+    back: "/mockup-polo.jpg",
+  },
+  "Hoodie": {
+    front: "/mockup-hoodie.jpg",
+    back: "/mockup-hoodie.jpg",
+  },
+  "Tote Bag": {
+    front: "/mockup-tote.jpg",
+    back: "/mockup-tote.jpg",
+  },
 };
 
 const PLACEMENT_CLASSES: Record<string, string> = {
@@ -38,6 +53,7 @@ export default function CustomDesign() {
   const [shirtType, setShirtType] = useState(shirtTypes[0]);
   const [shirtColor, setShirtColor] = useState(shirtColors[0]);
   const [placement, setPlacement] = useState(placements[0]);
+  const [viewSide, setViewSide] = useState<"front" | "back">("front");
   const [submitted, setSubmitted] = useState(false);
   const [dragging, setDragging] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
@@ -87,7 +103,7 @@ export default function CustomDesign() {
     setSubmitted(true);
   };
 
-  const mockupSrc = MOCKUP_MAP[shirtType] || MOCKUP_MAP["Classic Crew Neck"];
+  const mockupSrc = (MOCKUP_MAP[shirtType] || MOCKUP_MAP["Classic Crew Neck"])[viewSide];
 
   if (submitted) {
     return (
@@ -395,11 +411,29 @@ export default function CustomDesign() {
                 )}
               </div>
 
+              <button
+                type="button"
+                onClick={() => setViewSide((s) => (s === "front" ? "back" : "front"))}
+                className="absolute left-3 top-1/2 -translate-y-1/2 inline-flex items-center justify-center rounded-full bg-black/60 text-white/80 hover:text-white border border-white/10 hover:border-white/30 backdrop-blur-sm transition-all"
+                aria-label={viewSide === "front" ? "Show back" : "Show front"}
+              >
+                <ChevronLeft size={18} />
+              </button>
+              <button
+                type="button"
+                onClick={() => setViewSide((s) => (s === "front" ? "back" : "front"))}
+                className="absolute right-3 top-1/2 -translate-y-1/2 inline-flex items-center justify-center rounded-full bg-black/60 text-white/80 hover:text-white border border-white/10 hover:border-white/30 backdrop-blur-sm transition-all"
+                aria-label={viewSide === "front" ? "Show back" : "Show front"}
+              >
+                <ChevronRight size={18} />
+              </button>
+
               <div className="absolute bottom-4 left-4 right-4">
                 <div className="bg-black/70 backdrop-blur-sm border border-white/10 rounded-xl px-4 py-3">
                   <div className="flex items-center justify-between text-xs">
                     <span className="text-white/50" style={{ fontFamily: "Inter, sans-serif" }}>{shirtType}</span>
                     <span className="text-white/50" style={{ fontFamily: "Inter, sans-serif" }}>{placement}</span>
+                    <span className="text-primary font-semibold" style={{ fontFamily: "Inter, sans-serif" }}>{viewSide === "front" ? "Front" : "Back"}</span>
                   </div>
                 </div>
               </div>
