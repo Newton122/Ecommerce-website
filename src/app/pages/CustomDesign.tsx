@@ -16,8 +16,55 @@ const shirtColors = [
   { name: "Sand Beige", value: "#c8b896" },
 ];
 
-const MOCKUP_IMG_DARK = "https://images.unsplash.com/photo-1618677603286-0ec56cb6e1b5?w=600&h=700&fit=crop&auto=format";
-const MOCKUP_IMG_LIGHT = "https://images.unsplash.com/photo-1620799139507-2a76f79a2f4d?w=600&h=700&fit=crop&auto=format";
+const MOCKUPS = {
+  "Classic Crew Neck": {
+    "Jet Black": "https://images.unsplash.com/photo-1618677603286-0ec56cb6e1b5?w=600&h=700&fit=crop&auto=format&sat=-100",
+    "Pure White": "https://images.unsplash.com/photo-1620799139507-2a76f79a2f4d?w=600&h=700&fit=crop&auto=format&sat=-100",
+    "Forest Green": "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=600&h=700&fit=crop&auto=format&sat=-100",
+    "Navy Blue": "https://images.unsplash.com/photo-1562157873-818bc0726f68?w=600&h=700&fit=crop&auto=format&sat=-100",
+    "Ash Gray": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=700&fit=crop&auto=format&sat=-100",
+    "Sand Beige": "https://images.unsplash.com/photo-1614975059258-4e5d4b0f0c1a?w=600&h=700&fit=crop&auto=format&sat=-100",
+  },
+  "Oversized Drop Shoulder": {
+    "Jet Black": "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&h=700&fit=crop&auto=format&sat=-100",
+    "Pure White": "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&h=700&fit=crop&auto=format&sat=-100",
+    "Forest Green": "https://images.unsplash.com/photo-1554568218-0f1715e72254?w=600&h=700&fit=crop&auto=format&sat=-100",
+    "Navy Blue": "https://images.unsplash.com/photo-1490578474895-699cd4e2cf59?w=600&h=700&fit=crop&auto=format&sat=-100",
+    "Ash Gray": "https://images.unsplash.com/photo-1567904847086-83a8e09cb9b7?w=600&h=700&fit=crop&auto=format&sat=-100",
+    "Sand Beige": "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=600&h=700&fit=crop&auto=format&sat=-100",
+  },
+  "Polo Shirt": {
+    "Jet Black": "https://images.unsplash.com/photo-1625910513413-5fc02f4098c3?w=600&h=700&fit=crop&auto=format&sat=-100",
+    "Pure White": "https://images.unsplash.com/photo-1625910513413-5fc02f4098c3?w=600&h=700&fit=crop&auto=format&sat=-100",
+    "Forest Green": "https://images.unsplash.com/photo-1625910513413-5fc02f4098c3?w=600&h=700&fit=crop&auto=format&sat=-100",
+    "Navy Blue": "https://images.unsplash.com/photo-1625910513413-5fc02f4098c3?w=600&h=700&fit=crop&auto=format&sat=-100",
+    "Ash Gray": "https://images.unsplash.com/photo-1625910513413-5fc02f4098c3?w=600&h=700&fit=crop&auto=format&sat=-100",
+    "Sand Beige": "https://images.unsplash.com/photo-1625910513413-5fc02f4098c3?w=600&h=700&fit=crop&auto=format&sat=-100",
+  },
+  "Hoodie": {
+    "Jet Black": "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&h=700&fit=crop&auto=format&sat=-100",
+    "Pure White": "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&h=700&fit=crop&auto=format&sat=-100",
+    "Forest Green": "https://images.unsplash.com/photo-1554568218-0f1715e72254?w=600&h=700&fit=crop&auto=format&sat=-100",
+    "Navy Blue": "https://images.unsplash.com/photo-1490578474895-699cd4e2cf59?w=600&h=700&fit=crop&auto=format&sat=-100",
+    "Ash Gray": "https://images.unsplash.com/photo-1567904847086-83a8e09cb9b7?w=600&h=700&fit=crop&auto=format&sat=-100",
+    "Sand Beige": "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=600&h=700&fit=crop&auto=format&sat=-100",
+  },
+  "Tote Bag": {
+    "Jet Black": "https://images.unsplash.com/photo-1544816155-12df9643f363?w=600&h=700&fit=crop&auto=format&sat=-100",
+    "Pure White": "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=600&h=700&fit=crop&auto=format&sat=-100",
+    "Forest Green": "https://images.unsplash.com/photo-1594223274512-ad4803739b7c?w=600&h=700&fit=crop&auto=format&sat=-100",
+    "Navy Blue": "https://images.unsplash.com/photo-1598532163257-ae3c6b2524b6?w=600&h=700&fit=crop&auto=format&sat=-100",
+    "Ash Gray": "https://images.unsplash.com/photo-1611651338412-9403f4293d2e?w=600&h=700&fit=crop&auto=format&sat=-100",
+    "Sand Beige": "https://images.unsplash.com/photo-1597484661973-ee6cd0b6482c?w=600&h=700&fit=crop&auto=format&sat=-100",
+  },
+};
+
+const PLACEMENT_CLASSES: Record<string, string> = {
+  "Front Center": "inset-x-1/4 top-[28%] bottom-[30%]",
+  "Back Center": "inset-x-1/4 top-[28%] bottom-[30%]",
+  "Left Chest": "left-[18%] top-[22%] w-[28%] h-[22%]",
+  "Right Sleeve": "right-[14%] top-[22%] w-[26%] h-[20%]",
+};
 
 export default function CustomDesign() {
   const [step, setStep] = useState(1);
@@ -28,6 +75,7 @@ export default function CustomDesign() {
   const [placement, setPlacement] = useState(placements[0]);
   const [submitted, setSubmitted] = useState(false);
   const [dragging, setDragging] = useState(false);
+  const [mockupLoaded, setMockupLoaded] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
 
   const handleFile = (file: File) => {
@@ -37,36 +85,32 @@ export default function CustomDesign() {
   };
 
   useEffect(() => {
-    // load mockup image from sessionStorage if navigation from Mockup page
     try {
-      const dataUrl = sessionStorage.getItem("mockupImage")
-      const name = sessionStorage.getItem("mockupFileName") || "upload.png"
-      const type = sessionStorage.getItem("mockupFileType") || "image/png"
+      const dataUrl = sessionStorage.getItem("mockupImage");
+      const name = sessionStorage.getItem("mockupFileName") || "upload.png";
+      const type = sessionStorage.getItem("mockupFileType") || "image/png";
       if (dataUrl) {
-        // reconstruct File object for existing UI expectations
         fetch(dataUrl)
           .then((r) => r.blob())
           .then((blob) => {
-            const f = new File([blob], name, { type })
-            setUploadedFile(f)
-            setPreviewUrl(dataUrl)
-            setStep(2)
-            // clean up sessionStorage
-            sessionStorage.removeItem("mockupImage")
-            sessionStorage.removeItem("mockupFileName")
-            sessionStorage.removeItem("mockupFileType")
-            sessionStorage.removeItem("mockupFileSize")
+            const f = new File([blob], name, { type });
+            setUploadedFile(f);
+            setPreviewUrl(dataUrl);
+            setStep(2);
+            sessionStorage.removeItem("mockupImage");
+            sessionStorage.removeItem("mockupFileName");
+            sessionStorage.removeItem("mockupFileType");
+            sessionStorage.removeItem("mockupFileSize");
           })
           .catch(() => {
-            // fallback: just set previewUrl
-            setPreviewUrl(dataUrl)
-            setStep(2)
-          })
+            setPreviewUrl(dataUrl);
+            setStep(2);
+          });
       }
     } catch (e) {
       // ignore
     }
-  }, [])
+  }, []);
 
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
@@ -79,8 +123,9 @@ export default function CustomDesign() {
     setSubmitted(true);
   };
 
-  const isDark = shirtColor.value === "#080808" || shirtColor.value === "#0a1628" || shirtColor.value === "#1a3d2b" || shirtColor.value === "#4a4a4a";
-  const mockupImg = isDark ? MOCKUP_IMG_DARK : MOCKUP_IMG_LIGHT;
+  const mockupSrc =
+    (MOCKUPS as any)[shirtType]?.[shirtColor.name] ||
+    (MOCKUPS as any)["Classic Crew Neck"]["Jet Black"];
 
   if (submitted) {
     return (
@@ -93,12 +138,12 @@ export default function CustomDesign() {
             Order Submitted!
           </h2>
           <p className="text-white/60 text-base mb-2" style={{ fontFamily: "Inter, sans-serif" }}>
-            We've received your custom design request.
+            We&apos;ve received your custom design request.
           </p>
           <p className="text-white/40 text-sm mb-8" style={{ fontFamily: "Inter, sans-serif" }}>
             Our team will reach out via WhatsApp within 24 hours to confirm details and pricing.
           </p>
-            <div className="flex gap-3 justify-center">
+          <div className="flex gap-3 justify-center">
             <a
               href="https://wa.me/213791938758?text=Hello%20Blackphics%2C%20I%27m%20interested%20in%20a%20custom%20design"
               className="px-5 py-3 bg-[#25d366] text-white rounded-xl font-bold text-sm flex items-center gap-2 hover:bg-[#20bd5a] transition-colors"
@@ -142,7 +187,7 @@ export default function CustomDesign() {
             Design Your Shirt
           </h1>
           <p className="text-white/50 text-lg max-w-xl mx-auto" style={{ fontFamily: "Inter, sans-serif" }}>
-            Upload your artwork, configure your order, and we'll handle the rest. Premium quality, delivered across Algeria.
+            Upload your artwork, configure your order, and we&apos;ll handle the rest. Premium quality, delivered across Algeria.
           </p>
         </div>
 
@@ -157,9 +202,7 @@ export default function CustomDesign() {
               <div className="flex flex-col items-center">
                 <div
                   className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold border-2 transition-all duration-300 ${
-                    step >= n
-                      ? "bg-primary border-primary text-black"
-                      : "border-white/20 text-white/40"
+                    step >= n ? "bg-primary border-primary text-black" : "border-white/20 text-white/40"
                   }`}
                   style={{ fontFamily: "Manrope, sans-serif" }}
                 >
@@ -357,31 +400,50 @@ export default function CustomDesign() {
             </h3>
             <div className="relative aspect-[3/4] rounded-3xl overflow-hidden bg-[#111] border border-white/[0.08]">
               {/* Base shirt image */}
-              <div className="absolute inset-0" style={{ backgroundColor: shirtColor.value }}>
+              <div className="absolute inset-0 bg-[#111]">
                 <img
-                  src={mockupImg}
+                  src={mockupSrc}
                   alt="T-shirt mockup"
-                  className="w-full h-full object-cover mix-blend-multiply opacity-60"
+                  onLoad={() => setMockupLoaded(true)}
+                  onError={() => setMockupLoaded(false)}
+                  className={`w-full h-full object-cover transition-opacity duration-500 ${mockupLoaded ? "opacity-100" : "opacity-0"}`}
+                  style={{ mixBlendMode: "multiply" }}
+                />
+                <div
+                  className="absolute inset-0 transition-opacity duration-500"
+                  style={{
+                    backgroundColor: shirtColor.value,
+                    opacity: mockupLoaded ? 0.85 : 1,
+                    mixBlendMode: "normal",
+                  }}
                 />
               </div>
+
+              {/* Subtle texture overlay for realism */}
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  backgroundImage:
+                    "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E\")",
+                  opacity: 0.4,
+                  mixBlendMode: "overlay",
+                }}
+              />
 
               {/* Uploaded design overlay */}
               {previewUrl && (
                 <div
-                  className={`absolute flex items-center justify-center ${
-                    placement === "Front Center"
-                      ? "inset-x-1/4 top-1/4 bottom-1/3"
-                      : placement === "Back Center"
-                      ? "inset-x-1/4 top-1/4 bottom-1/3"
-                      : placement === "Left Chest"
-                      ? "left-1/4 top-1/4 w-1/4 h-1/4"
-                      : "right-1/4 top-1/4 w-1/4 h-1/4"
-                  }`}
+                  className={`absolute flex items-center justify-center ${PLACEMENT_CLASSES[placement] || PLACEMENT_CLASSES["Front Center"]}`}
                 >
                   <img
                     src={previewUrl}
                     alt="Your design"
-                    className="max-w-full max-h-full object-contain drop-shadow-2xl"
+                    className="max-w-full max-h-full object-contain transition-transform duration-200 hover:scale-105"
+                    style={{
+                      transform: "rotate(-2deg) scale(0.92)",
+                      filter: "contrast(1.05) saturate(0.9)",
+                      opacity: 0.92,
+                    }}
                   />
                 </div>
               )}
