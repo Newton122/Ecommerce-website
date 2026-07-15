@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
 import { useAuth } from "./AuthContext";
+import { toast } from "sonner";
 
 export interface CartItem {
   id: number;
@@ -120,7 +121,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     });
     if (!res.ok) {
       const data = await res.json().catch(() => ({}));
-      console.error("Cart API error:", data);
+      toast.error(data?.message || "Cart operation failed. Please try again.");
     }
     return res;
   };

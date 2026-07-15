@@ -6,6 +6,7 @@ import { Upload, ArrowRight, Check, RefreshCw, Shirt, MapPin, ChevronLeft, Chevr
 import Link from "next/link";
 import { useAuth } from "../context/AuthContext";
 import { useNotifications } from "../context/NotificationContext";
+import { toast } from "sonner";
 
 const shirtTypes = ["Classic Crew Neck", "Oversized Drop Shoulder", "Polo Shirt", "Hoodie", "Tote Bag"];
 const placements = ["Front Center", "Back Center", "Left Chest", "Right Sleeve"];
@@ -173,7 +174,7 @@ export default function CustomDesign() {
         await refreshNotifications();
       }
     } catch (error) {
-      console.error("Failed to submit design request:", error);
+      toast.error("Failed to submit design request. Please try again.");
     } finally {
       setSubmitting(false);
       setSubmitted(true);

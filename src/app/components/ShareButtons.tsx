@@ -1,4 +1,5 @@
 import React from "react";
+import { toast } from "sonner";
 
 export default function ShareButtons({ title, text, url }: { title: string; text?: string; url?: string }) {
   const shareUrl = url || window.location.href;
@@ -9,10 +10,10 @@ export default function ShareButtons({ title, text, url }: { title: string; text
         await (navigator as any).share({ title, text, url: shareUrl });
       } else {
         await navigator.clipboard.writeText(shareUrl);
-        alert("Link copied to clipboard");
+        toast.success("Link copied to clipboard");
       }
     } catch (err) {
-      console.error(err);
+      toast.error("Failed to share. Please try again.");
     }
   };
 

@@ -2,6 +2,7 @@
 
 import { Component, ReactNode } from "react";
 import { AlertCircle } from "lucide-react";
+import { toast } from "sonner";
 
 interface Props {
   children: ReactNode;
@@ -21,7 +22,7 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   componentDidCatch(error: Error, info: { componentStack: string }) {
-    console.error("Unhandled error:", error, info);
+    toast.error("Something went wrong. Please try again.");
   }
 
   handleReset = () => {
