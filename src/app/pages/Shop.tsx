@@ -3,9 +3,9 @@
 import type { Metadata } from "next";
 import { useState, useMemo, useEffect } from "react";
 import { SlidersHorizontal, X, ShoppingCart } from "lucide-react";
-import ProductCard from "../src/app/components/ProductCard";
-import type { Product } from "../src/app/data/types";
-import { useSEO } from "../src/app/hooks/useSEO";
+import ProductCard from "../components/ProductCard";
+import type { Product } from "../data/types";
+import { useSEO } from "../hooks/useSEO";
 
 export const metadata: Metadata = {
   title: "Shop All — Blackphics",

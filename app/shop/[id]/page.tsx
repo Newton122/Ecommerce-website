@@ -1,2 +1,2 @@
-import ProductDetail from "#app/ProductDetail";
+import ProductDetail from "../../../src/app/pages/ProductDetail";
 export default ProductDetail;

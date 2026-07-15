@@ -3,8 +3,8 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Trash2, Plus, Minus, ArrowRight, ShoppingBag, ArrowLeft, AlertTriangle, Lock, Truck, RefreshCcw } from "lucide-react";
-import { useCart } from "../src/app/context/CartContext";
-import { useAuth } from "../src/app/context/AuthContext";
+import { useCart } from "../context/CartContext";
+import { useAuth } from "../context/AuthContext";
 import { useState, useEffect } from "react";
 
 export default function Cart() {

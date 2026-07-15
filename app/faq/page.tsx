@@ -1,2 +1,2 @@
-import FAQ from "../FAQ";
+import FAQ from "../../src/app/pages/FAQ";
 export default FAQ;

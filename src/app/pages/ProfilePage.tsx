@@ -1,7 +1,7 @@
 "use client";
 
-import { useRequireAuth } from "../src/app/hooks/useRequireAuth";
-import { useAuth } from "../src/app/context/AuthContext";
+import { useRequireAuth } from "../hooks/useRequireAuth";
+import { useAuth } from "../context/AuthContext";
 import Link from "next/link";
 import { useState } from "react";
 

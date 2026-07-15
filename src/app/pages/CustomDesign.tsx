@@ -4,8 +4,8 @@ import { useState, useRef } from "react";
 import { useEffect } from "react";
 import { Upload, ArrowRight, Check, RefreshCw, Shirt, MapPin, ChevronLeft, ChevronRight, X, RotateCw, ZoomIn, ZoomOut } from "lucide-react";
 import Link from "next/link";
-import { useAuth } from "../src/app/context/AuthContext";
-import { useNotifications } from "../src/app/context/NotificationContext";
+import { useAuth } from "../context/AuthContext";
+import { useNotifications } from "../context/NotificationContext";
 import { toast } from "sonner";
 
 const shirtTypes = ["Classic Crew Neck", "Oversized Drop Shoulder", "Polo Shirt", "Hoodie", "Tote Bag"];

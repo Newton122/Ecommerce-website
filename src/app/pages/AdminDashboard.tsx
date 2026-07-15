@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { BarChart3 } from "lucide-react";
-import { useAuth } from "../src/app/context/AuthContext";
+import { useAuth } from "../context/AuthContext";
 
 const API = process.env.NEXT_PUBLIC_API_URL || "/api";
 

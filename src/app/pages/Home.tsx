@@ -5,11 +5,11 @@ import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, Play, Star, ChevronRight, Printer, Camera, Palette, Award } from "lucide-react";
-import ProductCard from "../src/app/components/ProductCard";
-import type { Product } from "../src/app/data/types";
-import { reviews } from "../src/app/data/reviews";
-import { usePromo } from "../src/app/context/PromoContext";
-import { useSEO } from "../src/app/hooks/useSEO";
+import ProductCard from "../components/ProductCard";
+import type { Product } from "../data/types";
+import { reviews } from "../data/reviews";
+import { usePromo } from "../context/PromoContext";
+import { useSEO } from "../hooks/useSEO";
 
 export const metadata: Metadata = {
   title: "Blackphics — Algeria's Premier Creative Studio",

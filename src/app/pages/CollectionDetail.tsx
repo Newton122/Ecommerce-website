@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
-import ShareButtons from "../src/app/components/ShareButtons";
+import ShareButtons from "../components/ShareButtons";
 
 interface ProductItem {
   id: number;

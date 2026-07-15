@@ -1,2 +1,2 @@
-import Cart from "../Cart";
+import Cart from "../../src/app/pages/Cart";
 export default Cart;
