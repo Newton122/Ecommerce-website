@@ -175,14 +175,18 @@ export default function CustomDesign() {
         }),
       });
 
-      if (response.ok) {
-        await refreshNotifications();
+      if (!response.ok) {
+        const data = await response.json().catch(() => ({}));
+        throw new Error(data?.message || "Failed to submit design request");
       }
+
+      await refreshNotifications();
+      toast.success("Design request submitted successfully!");
+      setSubmitted(true);
     } catch (error) {
-      toast.error("Failed to submit design request. Please try again.");
+      toast.error(error instanceof Error ? error.message : "Failed to submit design request. Please try again.");
     } finally {
       setSubmitting(false);
-      setSubmitted(true);
     }
   };
 
