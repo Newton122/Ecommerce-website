@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { ShoppingCart, Bell, User, Menu, X, ChevronDown, LogOut, Package, Settings, Users, Sun, Moon, BarChart3 } from "lucide-react";
+import { ShoppingCart, Bell, User, Menu, X, ChevronDown, LogOut, Package, Settings, Users, Sun, Moon, BarChart3, Shirt } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import { useCart } from "../context/CartContext";
 import { useNotifications } from "../context/NotificationContext";
@@ -199,6 +199,12 @@ export default function Navbar() {
                         <Link href="/admin/analytics">
                           <BarChart3 size={14} className="mr-2" />
                           Analytics
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <Link href="/admin/design-requests">
+                          <Shirt size={14} className="mr-2" />
+                          Design Requests
                         </Link>
                       </DropdownMenuItem>
                     </>

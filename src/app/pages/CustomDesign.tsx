@@ -272,6 +272,13 @@ export default function CustomDesign() {
               Chat on WhatsApp
             </a>
             <Link
+              href="/admin/design-requests"
+              className="px-5 py-3 border border-white/15 text-white rounded-xl font-semibold text-sm hover:border-white/30 hover:bg-white/5 transition-all flex items-center gap-2"
+              style={{ fontFamily: "Manrope, sans-serif" }}
+            >
+              View Design Requests
+            </Link>
+            <Link
               href="/"
               className="px-5 py-3 border border-white/15 text-white rounded-xl font-semibold text-sm hover:border-white/30 transition-colors"
               style={{ fontFamily: "Manrope, sans-serif" }}

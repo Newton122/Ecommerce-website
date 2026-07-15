@@ -65,8 +65,12 @@ export default function AdminDesignRequests() {
   };
 
   const deleteRequest = async (id: number) => {
-    if (!confirm("Delete this design request?")) return;
     setActioningId(id);
+    const confirmDelete = window.confirm("Are you sure you want to delete this design request? This action cannot be undone.");
+    if (!confirmDelete) {
+      setActioningId(null);
+      return;
+    }
     try {
       const res = await fetch(`/api/design-requests/${id}`, {
         method: "DELETE",
