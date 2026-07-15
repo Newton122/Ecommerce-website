@@ -32,6 +32,13 @@ interface DesignRequest {
 
 const STATUS_OPTIONS = ["pending", "in_progress", "completed", "rejected"] as const;
 
+const PLACEMENT_POSITIONS: Record<string, { left: string; top: string; width: string; height: string }> = {
+  "Front Center": { left: "25%", top: "28%", width: "50%", height: "42%" },
+  "Back Center": { left: "25%", top: "28%", width: "50%", height: "42%" },
+  "Left Chest": { left: "16%", top: "20%", width: "30%", height: "24%" },
+  "Right Sleeve": { left: "60%", top: "20%", width: "28%", height: "22%" },
+};
+
 export default function AdminDesignRequests() {
   const { user, token } = useAuth();
   const [requests, setRequests] = useState<DesignRequest[]>([]);
@@ -147,12 +154,25 @@ export default function AdminDesignRequests() {
                 </div>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <div className="flex-1 rounded-xl border border-white/[0.08] bg-black/20 p-3">
-                    <p className="text-white/50 text-xs uppercase tracking-widest mb-2" style={{ fontFamily: "Inter, sans-serif" }}>Design</p>
-                    <img src={req.designImage} alt="Design" className="w-full h-48 object-contain rounded-lg" />
+                    <p className="text-white/50 text-xs uppercase tracking-widest mb-2" style={{ fontFamily: "Inter, sans-serif" }}>Preview</p>
+                    <div className="relative w-full aspect-[3/4] rounded-lg overflow-hidden bg-black/40">
+                      <img src={req.mockupImage} alt="Mockup" className="w-full h-full object-contain" />
+                      <div
+                        className="absolute flex items-center justify-center"
+                        style={{
+                          left: (PLACEMENT_POSITIONS[req.placement] || PLACEMENT_POSITIONS["Front Center"]).left,
+                          top: (PLACEMENT_POSITIONS[req.placement] || PLACEMENT_POSITIONS["Front Center"]).top,
+                          width: (PLACEMENT_POSITIONS[req.placement] || PLACEMENT_POSITIONS["Front Center"]).width,
+                          height: (PLACEMENT_POSITIONS[req.placement] || PLACEMENT_POSITIONS["Front Center"]).height,
+                        }}
+                      >
+                        <img src={req.designImage} alt="Design" className="w-full h-full object-contain" style={{ transform: "rotate(-2deg) scale(0.95)", filter: "contrast(1.05) saturate(0.9)", opacity: 0.92 }} />
+                      </div>
+                    </div>
                   </div>
                   <div className="flex-1 rounded-xl border border-white/[0.08] bg-black/20 p-3">
-                    <p className="text-white/50 text-xs uppercase tracking-widest mb-2" style={{ fontFamily: "Inter, sans-serif" }}>Mockup</p>
-                    <img src={req.mockupImage} alt="Mockup" className="w-full h-48 object-contain rounded-lg" />
+                    <p className="text-white/50 text-xs uppercase tracking-widest mb-2" style={{ fontFamily: "Inter, sans-serif" }}>Uploaded Design</p>
+                    <img src={req.designImage} alt="Design" className="w-full h-48 object-contain rounded-lg" />
                   </div>
                 </div>
               </div>
