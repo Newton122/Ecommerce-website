@@ -25,6 +25,7 @@ import AdminProductForm from "./pages/AdminProductForm";
 import AdminOrders from "./pages/AdminOrders";
 import AdminUsers from "./pages/AdminUsers";
 import AdminAnalytics from "./pages/AdminAnalytics";
+import AdminDesignRequests from "./admin/design-requests/page";
 import TermsPage from "./pages/TermsPage";
 import PrivacyPage from "./pages/PrivacyPage";
 import ReturnsPage from "./pages/ReturnsPage";
@@ -141,6 +142,10 @@ export default function AppRouter() {
 
   if (pathname === "/admin/analytics") {
     return <AdminAnalytics />;
+  }
+
+  if (pathname === "/admin/design-requests") {
+    return <AdminDesignRequests />;
   }
 
   if (pathname === "/terms") {
