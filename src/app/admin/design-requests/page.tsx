@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
+import { Trash2 } from "lucide-react";
 
 interface DesignRequest {
   id: number;
@@ -18,12 +19,15 @@ interface DesignRequest {
   createdAt: string;
 }
 
+const STATUS_OPTIONS = ["pending", "in_progress", "completed", "rejected"] as const;
+
 export default function AdminDesignRequests() {
   const { user, token } = useAuth();
   const [requests, setRequests] = useState<DesignRequest[]>([]);
   const [loading, setLoading] = useState(true);
+  const [actioningId, setActioningId] = useState<number | null>(null);
 
-  useEffect(() => {
+  const load = () => {
     if (!token) return;
     fetch("/api/design-requests", {
       headers: { Authorization: `Bearer ${token}` },
@@ -32,7 +36,42 @@ export default function AdminDesignRequests() {
       .then(setRequests)
       .catch(() => {})
       .finally(() => setLoading(false));
+  };
+
+  useEffect(() => {
+    load();
   }, [token]);
+
+  const updateStatus = async (id: number, status: string) => {
+    setActioningId(id);
+    try {
+      await fetch(`/api/design-requests/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ status }),
+      });
+      load();
+    } finally {
+      setActioningId(null);
+    }
+  };
+
+  const deleteRequest = async (id: number) => {
+    if (!confirm("Delete this design request?")) return;
+    setActioningId(id);
+    try {
+      await fetch(`/api/design-requests/${id}`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setRequests((prev) => prev.filter((r) => r.id !== id));
+    } finally {
+      setActioningId(null);
+    }
+  };
 
   if (!user || user.role !== "admin") {
     return (
@@ -65,9 +104,26 @@ export default function AdminDesignRequests() {
                       {req.shirtColor} · {req.placement} · {req.viewSide || "front"} · {new Date(req.createdAt).toLocaleString()}
                     </p>
                   </div>
-                  <span className="text-xs font-medium px-2 py-1 rounded-full bg-primary/15 text-primary w-fit">
-                    {req.status}
-                  </span>
+                  <div className="flex items-center gap-2">
+                    <select
+                      value={req.status}
+                      onChange={(e) => updateStatus(req.id, e.target.value)}
+                      disabled={actioningId === req.id}
+                      className="bg-black/40 border border-white/10 text-white text-xs rounded-lg px-2 py-1.5 outline-none focus:border-primary disabled:opacity-50"
+                    >
+                      {STATUS_OPTIONS.map((s) => (
+                        <option key={s} value={s}>{s.replace("_", " ")}</option>
+                      ))}
+                    </select>
+                    <button
+                      onClick={() => deleteRequest(req.id)}
+                      disabled={actioningId === req.id}
+                      className="inline-flex items-center justify-center rounded-lg bg-red-500/10 text-red-400 border border-red-500/20 hover:bg-red-500/20 transition-colors p-2 disabled:opacity-50"
+                      title="Delete request"
+                    >
+                      <Trash2 size={16} />
+                    </button>
+                  </div>
                 </div>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <div className="flex-1 rounded-xl border border-white/[0.08] bg-black/20 p-3">

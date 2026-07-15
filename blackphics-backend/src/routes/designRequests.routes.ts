@@ -18,6 +18,16 @@ async function getRequestUser(req: any) {
   }
 }
 
+async function requireAdminUser(req: any) {
+  const user = await getRequestUser(req);
+  if (!user || user.role !== "admin") {
+    const err = new Error("Admin access required") as any;
+    err.statusCode = 403;
+    throw err;
+  }
+  return user;
+}
+
 router.post("/", asyncHandler(async (req: any, res: Response) => {
   const { shirtType, shirtColor, placement, viewSide, designImage, mockupImage } = req.body;
   const user = await getRequestUser(req);
@@ -64,6 +74,54 @@ router.get("/", asyncHandler(async (req: any, res: Response) => {
     : [];
 
   res.json(requests);
+}));
+
+router.patch("/:id", asyncHandler(async (req: any, res: Response) => {
+  const admin = await requireAdminUser(req);
+  const requestId = Number(req.params.id);
+  const { status } = req.body;
+
+  if (!["pending", "in_progress", "completed", "rejected"].includes(status)) {
+    return res.status(400).json({ message: "Invalid status" });
+  }
+
+  const existing = await prisma.designRequest.findUnique({ where: { id: requestId } });
+  if (!existing) {
+    return res.status(404).json({ message: "Design request not found" });
+  }
+
+  const updated = await prisma.designRequest.update({
+    where: { id: requestId },
+    data: { status },
+  });
+
+  if (existing.userId && existing.status !== status) {
+    await prisma.notification.create({
+      data: {
+        userId: existing.userId,
+        title: `Design Request ${status.replace("_", " ")}`,
+        message: `Your ${existing.shirtType} design request has been marked as ${status.replace("_", " ")}.`,
+        type: "design",
+        href: "/custom",
+        image: existing.designImage,
+      },
+    });
+  }
+
+  return res.json(updated);
+}));
+
+router.delete("/:id", asyncHandler(async (req: any, res: Response) => {
+  await requireAdminUser(req);
+  const requestId = Number(req.params.id);
+
+  const existing = await prisma.designRequest.findUnique({ where: { id: requestId } });
+  if (!existing) {
+    return res.status(404).json({ message: "Design request not found" });
+  }
+
+  await prisma.designRequest.delete({ where: { id: requestId } });
+  return res.status(204).send();
 }));
 
 export default router;

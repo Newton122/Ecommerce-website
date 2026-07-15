@@ -34,6 +34,7 @@ model User {
   cartItems CartItem[]
   orders    Order[]
   reviews   Review[]
+  notifications Notification[]
 }
 
 model Product {
@@ -143,4 +144,20 @@ model DesignRequest {
   mockupImage String
   status      String   @default("pending")
   createdAt   DateTime @default(now())
+}
+
+model Notification {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  title     String
+  message   String
+  type      String
+  href      String?
+  image     String?
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }
