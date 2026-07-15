@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { Trash2 } from "lucide-react";
+import { toast } from "sonner";
 
 interface DesignRequest {
   id: number;
@@ -45,7 +46,7 @@ export default function AdminDesignRequests() {
   const updateStatus = async (id: number, status: string) => {
     setActioningId(id);
     try {
-      await fetch(`/api/design-requests/${id}`, {
+      const res = await fetch(`/api/design-requests/${id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -53,7 +54,11 @@ export default function AdminDesignRequests() {
         },
         body: JSON.stringify({ status }),
       });
+      if (!res.ok) throw new Error("Failed to update status");
+      toast.success(`Status updated to ${status.replace("_", " ")}`);
       load();
+    } catch {
+      toast.error("Failed to update status. Please try again.");
     } finally {
       setActioningId(null);
     }
@@ -63,11 +68,15 @@ export default function AdminDesignRequests() {
     if (!confirm("Delete this design request?")) return;
     setActioningId(id);
     try {
-      await fetch(`/api/design-requests/${id}`, {
+      const res = await fetch(`/api/design-requests/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
+      if (!res.ok) throw new Error("Failed to delete");
       setRequests((prev) => prev.filter((r) => r.id !== id));
+      toast.success("Design request deleted successfully");
+    } catch {
+      toast.error("Failed to delete design request. Please try again.");
     } finally {
       setActioningId(null);
     }

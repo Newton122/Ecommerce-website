@@ -26,6 +26,11 @@ const ALL_MOCKUPS = [
   "/mockup-polo.jpg",
   "/mockup-hoodie.jpg",
   "/mockup-tote.jpg",
+  "/mockup-red.jpg",
+  "/mockup_br.jpg",
+  "/mockup_black.jpg",
+  "/mockup_white.jpg",
+  "/mockup_round-white.jpg",  
 ];
 
 const MOCKUP_MAP: Record<string, { front: string[]; back: string[] }> = {
