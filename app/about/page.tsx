@@ -1,2 +1,2 @@
-import About from "../../src/app/pages/About";
+import About from "../About";
 export default About;

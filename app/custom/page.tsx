@@ -1,2 +1,2 @@
-import CustomDesign from "../../src/app/pages/CustomDesign";
+import CustomDesign from "../CustomDesign";
 export default CustomDesign;

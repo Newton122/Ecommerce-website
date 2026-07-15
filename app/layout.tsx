@@ -1,8 +1,19 @@
 import type { ReactNode } from "react";
 import type { Metadata as NextMetadata } from "next";
 import "../src/styles/index.css";
-import App from "../src/app/App";
-import Layout from "../src/app/Layout";
+import { CartProvider } from "../src/app/context/CartContext";
+import { ThemeProvider } from "../src/app/context/ThemeContext";
+import { AuthProvider } from "../src/app/context/AuthContext";
+import { PromoProvider } from "../src/app/context/PromoContext";
+import { NotificationProvider } from "../src/app/context/NotificationContext";
+import { AnalyticsProvider } from "../src/app/context/AnalyticsContext";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import Navbar from "../src/app/components/Navbar";
+import Footer from "../src/app/components/Footer";
+import PromoModal from "../src/app/components/PromoModal";
+import { Toaster } from "../src/app/components/ui/sonner";
+import { ErrorBoundary } from "../src/app/components/ErrorBoundary";
 
 export const metadata: NextMetadata = {
   title: {
@@ -41,9 +52,29 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body>
-        <App>
-          <Layout>{children}</Layout>
-        </App>
+        <ThemeProvider>
+          <AuthProvider>
+            <CartProvider>
+              <NotificationProvider>
+                <AnalyticsProvider>
+                  <PromoProvider>
+                    <ErrorBoundary>
+                      <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+                        <Navbar />
+                        <main className="flex-1">
+                          {children}
+                        </main>
+                        <Footer />
+                        <PromoModal />
+                        <Toaster />
+                      </div>
+                    </ErrorBoundary>
+                  </PromoProvider>
+                </AnalyticsProvider>
+              </NotificationProvider>
+            </CartProvider>
+          </AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { Package } from "lucide-react";
-import { useRequireAuth } from "../hooks/useRequireAuth";
-import { useAuth } from "../context/AuthContext";
+import { useRequireAuth } from "../src/app/hooks/useRequireAuth";
+import { useAuth } from "../src/app/context/AuthContext";
 import { toast } from "sonner";
 
 const API = process.env.NEXT_PUBLIC_API_URL || "/api";

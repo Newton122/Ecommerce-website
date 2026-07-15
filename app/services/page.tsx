@@ -1,2 +1,2 @@
-import Services from "../../src/app/pages/Services";
+import Services from "../Services";
 export default Services;

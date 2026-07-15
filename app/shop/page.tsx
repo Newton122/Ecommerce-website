@@ -1,2 +1,2 @@
-import Shop from "../../src/app/pages/Shop";
+import Shop from "../Shop";
 export default Shop;

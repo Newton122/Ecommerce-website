@@ -1,2 +1,2 @@
-import CollectionDetail from "../../../src/app/pages/CollectionDetail";
+import CollectionDetail from "#app/CollectionDetail";
 export default CollectionDetail;

@@ -1,2 +1,2 @@
-import Mockup from "../../src/app/pages/Mockup";
+import Mockup from "../Mockup";
 export default Mockup;

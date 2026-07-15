@@ -2,8 +2,8 @@
 
 import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
-import { useAuth } from "../context/AuthContext";
-import ConfirmDialog from "../components/ConfirmDialog";
+import { useAuth } from "../src/app/context/AuthContext";
+import ConfirmDialog from "../src/app/components/ConfirmDialog";
 
 const API = process.env.NEXT_PUBLIC_API_URL || "/api";
 

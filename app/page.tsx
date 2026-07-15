@@ -1,2 +1,2 @@
-import Home from "../src/app/pages/Home";
+import Home from "./Home";
 export default Home;

@@ -4,11 +4,11 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { ArrowLeft, ShoppingBag, Heart, Star, ChevronLeft, ChevronRight, Check, Truck, Shield, RotateCcw } from "lucide-react";
-import { useCart } from "../context/CartContext";
-import { useAuth } from "../context/AuthContext";
-import ProductCard from "../components/ProductCard";
-import type { Product } from "../data/types";
-import { useSEO } from "../hooks/useSEO";
+import { useCart } from "../src/app/context/CartContext";
+import { useAuth } from "../src/app/context/AuthContext";
+import ProductCard from "../src/app/components/ProductCard";
+import type { Product } from "../src/app/data/types";
+import { useSEO } from "../src/app/hooks/useSEO";
 
 interface ReviewItem {
   id: number;

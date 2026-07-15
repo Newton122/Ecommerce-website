@@ -1,9 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../src/app/context/AuthContext";
 import { toast } from "sonner";
-import WhatsAppLink from "../components/WhatsAppLink";
+import WhatsAppLink from "../src/app/components/WhatsAppLink";
 
 const API = process.env.NEXT_PUBLIC_API_URL || "/api";
 

@@ -1,2 +1,2 @@
-import Checkout from "../../src/app/pages/Checkout";
+import Checkout from "../Checkout";
 export default Checkout;

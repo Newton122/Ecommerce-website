@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 import { Check, Truck, ChevronDown } from "lucide-react";
-import { useCart } from "../context/CartContext";
-import { useAuth } from "../context/AuthContext";
-import { useRequireAuth } from "../hooks/useRequireAuth";
-import { useAnalytics } from "../context/AnalyticsContext";
+import { useCart } from "../src/app/context/CartContext";
+import { useAuth } from "../src/app/context/AuthContext";
+import { useRequireAuth } from "../src/app/hooks/useRequireAuth";
+import { useAnalytics } from "../src/app/context/AnalyticsContext";
 import Link from "next/link";
 
 const wilayas = [

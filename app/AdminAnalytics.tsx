@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useAuth } from "../context/AuthContext";
-import { useAnalytics } from "../context/AnalyticsContext";
+import { useAuth } from "../src/app/context/AuthContext";
+import { useAnalytics } from "../src/app/context/AnalyticsContext";
 import Link from "next/link";
 import { Eye, Shirt, ShoppingCart, Package } from "lucide-react";
 

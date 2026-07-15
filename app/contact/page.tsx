@@ -1,2 +1,2 @@
-import Contact from "../../src/app/pages/Contact";
+import Contact from "../Contact";
 export default Contact;

@@ -1,2 +1,2 @@
-import Collections from "../../src/app/pages/Collections";
+import Collections from "../Collections";
 export default Collections;
