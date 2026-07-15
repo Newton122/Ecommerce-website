@@ -109,31 +109,35 @@ export default function Navbar() {
                     <div className="px-2 py-4 text-center text-white/50 text-sm">No notifications</div>
                   ) : (
                     notifications.slice(0, 6).map((n) => (
-                      <DropdownMenuItem key={n.id} asChild>
-                        <Link
-                          href={n.href || "#"}
-                          className="flex flex-col items-start gap-1"
-                          onClick={() => markAsRead(n.id)}
-                        >
-                          {n.image && (
-                            <div className="w-full h-24 rounded-md overflow-hidden bg-black/40 mb-1">
-                              <img
-                                src={n.image}
-                                alt="Design preview"
-                                className="w-full h-full object-contain"
-                                loading="lazy"
-                                onError={(e) => {
-                                  (e.target as HTMLImageElement).style.display = "none";
-                                }}
-                              />
-                            </div>
-                          )}
-                          <span className="text-xs font-semibold text-white">{n.title}</span>
-                          <span className="text-xs text-white/60 line-clamp-2">{n.message}</span>
-                          <span className="text-[10px] text-white/40">
-                            {new Date(n.time).toLocaleString()}
-                          </span>
-                        </Link>
+                      <DropdownMenuItem
+                        key={n.id}
+                        onSelect={() => {
+                          markAsRead(n.id);
+                          const target = n.href || "/";
+                          setTimeout(() => {
+                            window.location.href = target;
+                          }, 50);
+                        }}
+                        className="flex flex-col items-start gap-1"
+                      >
+                        {n.image && (
+                          <div className="w-full h-24 rounded-md overflow-hidden bg-black/40 mb-1">
+                            <img
+                              src={n.image}
+                              alt="Design preview"
+                              className="w-full h-full object-contain"
+                              loading="lazy"
+                              onError={(e) => {
+                                (e.target as HTMLImageElement).style.display = "none";
+                              }}
+                            />
+                          </div>
+                        )}
+                        <span className="text-xs font-semibold text-white">{n.title}</span>
+                        <span className="text-xs text-white/60 line-clamp-2">{n.message}</span>
+                        <span className="text-[10px] text-white/40">
+                          {new Date(n.time).toLocaleString()}
+                        </span>
                       </DropdownMenuItem>
                     ))
                   )}
