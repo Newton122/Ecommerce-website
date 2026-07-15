@@ -31,7 +31,7 @@ export default function Navbar() {
   const router = useRouter();
   const { user, logout } = useAuth();
   const { count } = useCart();
-  const { notifications, unreadCount, markAllAsRead } = useNotifications();
+  const { notifications, unreadCount, markAsRead, markAllAsRead } = useNotifications();
   const { theme, toggleTheme } = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -112,12 +112,20 @@ export default function Navbar() {
                       <DropdownMenuItem key={n.id} asChild>
                         <Link
                           href={n.href || "#"}
-                          className="flex flex-col items-start gap-1 cursor-pointer"
-                          onClick={() => markAllAsRead()}
+                          className="flex flex-col items-start gap-1"
+                          onClick={() => markAsRead(n.id)}
                         >
                           {n.image && (
                             <div className="w-full h-24 rounded-md overflow-hidden bg-black/40 mb-1">
-                              <img src={n.image} alt="Design preview" className="w-full h-full object-contain" />
+                              <img
+                                src={n.image}
+                                alt="Design preview"
+                                className="w-full h-full object-contain"
+                                loading="lazy"
+                                onError={(e) => {
+                                  (e.target as HTMLImageElement).style.display = "none";
+                                }}
+                              />
                             </div>
                           )}
                           <span className="text-xs font-semibold text-white">{n.title}</span>

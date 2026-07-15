@@ -136,6 +136,23 @@ export default function CustomDesign() {
     setSubmitting(true);
     try {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || "/api";
+
+      let designImage = previewUrl;
+      let mockupImage = mockupSrc;
+
+      if (previewUrl && previewUrl.startsWith("blob:")) {
+        try {
+          const blob = await fetch(previewUrl).then((r) => r.blob());
+          designImage = await new Promise<string>((resolve) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result as string);
+            reader.readAsDataURL(blob);
+          });
+        } catch {
+          designImage = previewUrl;
+        }
+      }
+
       const response = await fetch(`${apiUrl}/design-requests`, {
         method: "POST",
         headers: {
@@ -147,8 +164,8 @@ export default function CustomDesign() {
           shirtColor: shirtColor.name,
           placement,
           viewSide,
-          designImage: previewUrl,
-          mockupImage: mockupSrc,
+          designImage,
+          mockupImage,
         }),
       });
 
