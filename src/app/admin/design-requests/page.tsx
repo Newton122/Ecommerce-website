@@ -4,6 +4,16 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { Trash2 } from "lucide-react";
 import { toast } from "sonner";
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogCancel,
+  AlertDialogAction,
+} from "../../components/ui/alert-dialog";
 
 interface DesignRequest {
   id: number;
@@ -27,6 +37,7 @@ export default function AdminDesignRequests() {
   const [requests, setRequests] = useState<DesignRequest[]>([]);
   const [loading, setLoading] = useState(true);
   const [actioningId, setActioningId] = useState<number | null>(null);
+  const [pendingDeleteId, setPendingDeleteId] = useState<number | null>(null);
 
   const load = () => {
     if (!token) return;
@@ -66,11 +77,6 @@ export default function AdminDesignRequests() {
 
   const deleteRequest = async (id: number) => {
     setActioningId(id);
-    const confirmDelete = window.confirm("Are you sure you want to delete this design request? This action cannot be undone.");
-    if (!confirmDelete) {
-      setActioningId(null);
-      return;
-    }
     try {
       const res = await fetch(`/api/design-requests/${id}`, {
         method: "DELETE",
@@ -83,6 +89,7 @@ export default function AdminDesignRequests() {
       toast.error("Failed to delete design request. Please try again.");
     } finally {
       setActioningId(null);
+      setPendingDeleteId(null);
     }
   };
 
@@ -129,7 +136,7 @@ export default function AdminDesignRequests() {
                       ))}
                     </select>
                     <button
-                      onClick={() => deleteRequest(req.id)}
+                      onClick={() => setPendingDeleteId(req.id)}
                       disabled={actioningId === req.id}
                       className="inline-flex items-center justify-center rounded-lg bg-red-500/10 text-red-400 border border-red-500/20 hover:bg-red-500/20 transition-colors p-2 disabled:opacity-50"
                       title="Delete request"
@@ -153,6 +160,26 @@ export default function AdminDesignRequests() {
           </div>
         )}
       </div>
+
+      <AlertDialog open={pendingDeleteId !== null} onOpenChange={(open) => !open && setPendingDeleteId(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete this design request?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This action cannot be undone. This will permanently remove the design request from the admin panel.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={() => setPendingDeleteId(null)}>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={() => pendingDeleteId && deleteRequest(pendingDeleteId)}
+              className="bg-red-600 hover:bg-red-700 text-white"
+            >
+              Delete
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }
