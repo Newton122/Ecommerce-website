@@ -11,7 +11,7 @@ function slugify(name: string) {
 
 const products = [
   {
-    name: "Blackphics Signature Tee",
+    name: "Blacphics Signature Tee",
     price: 2800,
     category: "signature",
     colors: ["#080808", "#ffffff", "#1a1a2e"],
@@ -24,7 +24,7 @@ const products = [
     ],
     badge: "new" as const,
     description:
-      "Our signature piece — a heavyweight premium cotton tee featuring the iconic Blackphics emblem. Designed for those who carry identity in every stitch.",
+      "Our signature piece — a heavyweight premium cotton tee featuring the iconic Blacphics emblem. Designed for those who carry identity in every stitch.",
     rating: 4.9,
     reviewCount: 128,
     stock: 50,
@@ -117,7 +117,7 @@ const products = [
       "https://images.unsplash.com/photo-1760126130290-bbbc9b41292a?w=800&h=1000&fit=crop&auto=format",
     ],
     badge: null,
-    description: "Inspired by Blackphics' photography portfolio. Real portraits, real stories, printed in ink.",
+    description: "Inspired by Blacphics' photography portfolio. Real portraits, real stories, printed in ink.",
     rating: 4.7,
     reviewCount: 45,
     stock: 35,
@@ -134,8 +134,8 @@ const collectionsDef = [
 ];
 
 const reviewsDef = [
-  { slug: "blackphics-signature-tee", rating: 5, comment: "The print quality is insane — zero bleeding, sharp edges.", author: "Amine K." },
-  { slug: "blackphics-signature-tee", rating: 4, comment: "Great fit and premium feel. Would buy again.", author: "Sara B." },
+  { slug: "blacphics-signature-tee", rating: 5, comment: "The print quality is insane — zero bleeding, sharp edges.", author: "Amine K." },
+  { slug: "blacphics-signature-tee", rating: 4, comment: "Great fit and premium feel. Would buy again.", author: "Sara B." },
   { slug: "urban-core-oversized-tee", rating: 5, comment: "Dropped shoulders, relaxed fit. Hits hard on the streets.", author: "Yacine M." },
   { slug: "urban-core-oversized-tee", rating: 4, comment: "Comfortable and stylish. The oversized look is perfect.", author: "Leila H." },
   { slug: "creatives-club-graphic-tee", rating: 5, comment: "Bold print, great quality. Gets noticed everywhere.", author: "Karim Z." },

@@ -1,4 +1,4 @@
-# Blackphics Backend — Setup
+# Blacphics Backend — Setup
 
 ## Stack
 Express + TypeScript + PostgreSQL + Prisma + JWT auth

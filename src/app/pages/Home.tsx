@@ -12,10 +12,10 @@ import { usePromo } from "../context/PromoContext";
 import { useSEO } from "../hooks/useSEO";
 
 export const metadata: Metadata = {
-  title: "Blackphics — Algeria's Premier Creative Studio",
+  title: "Blacphics — Algeria's Premier Creative Studio",
   description: "Custom apparel, graphic design, photography and branding from Algeria. DTF, screen print, sublimation — any design, any fabric, any quantity.",
   openGraph: {
-    title: "Blackphics — Algeria's Premier Creative Studio",
+    title: "Blacphics — Algeria's Premier Creative Studio",
     description: "Custom apparel, graphic design, photography and branding from Algeria.",
     images: ["https://images.unsplash.com/photo-1780566036313-1f12261769e8?w=1200&h=630&fit=crop&auto=format"],
   },
@@ -58,14 +58,14 @@ const services = [
 ];
 
 const stats = [
-  { label: "Happy Clients", value: "1,200+" },
-  { label: "Prints Delivered", value: "15,000+" },
-  { label: "Design Projects", value: "800+" },
-  { label: "Years Active", value: "6+" },
+  { label: "Happy Clients", value: "500+" },
+  { label: "Prints Delivered", value: "8,000+" },
+  { label: "Design Projects", value: "300+" },
+  { label: "Years Active", value: "3+" },
 ];
 
 export default function Home() {
-  useSEO({ title: "Home", description: "Blackphics is Algeria's premier creative studio for custom apparel, graphic design, photography and branding.", pathname: "/" });
+  useSEO({ title: "Home", description: "Blacphics is Algeria's premier creative studio for custom apparel, graphic design, photography and branding.", pathname: "/" });
   const [visible, setVisible] = useState(false);
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
@@ -107,7 +107,7 @@ export default function Home() {
         <div className="absolute inset-0">
           <img
             src={HERO_IMG}
-            alt="Blackphics hero"
+            alt="Blacphics hero"
             className="w-full h-full object-cover object-center"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-black/30" />
@@ -190,7 +190,7 @@ export default function Home() {
       </section>
 
       {/* ─── STATS ─── */}
-      <section className="border-y border-white/[0.06] bg-black/60 backdrop-blur-sm" data-aos="fade-up">
+      <section className="border-y border-white/[0.06] bg-card backdrop-blur-sm" data-aos="fade-up">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map(({ label, value }, idx) => (
@@ -347,13 +347,13 @@ export default function Home() {
             <div className="relative rounded-3xl overflow-hidden aspect-[4/3]">
               <img
                 src={STORY_IMG}
-                alt="Blackphics studio"
+                alt="Blacphics studio"
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
             </div>
             {/* Floating stat card */}
-            <div className="absolute -bottom-6 -right-6 bg-black/90 backdrop-blur-xl border border-white/10 rounded-2xl p-5 shadow-2xl">
+            <div className="absolute -bottom-6 -right-6 bg-card backdrop-blur-xl border border-white/10 rounded-2xl p-5 shadow-2xl">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl bg-primary/15 border border-primary/30 flex items-center justify-center">
                   <Award size={18} className="text-primary" />
@@ -377,10 +377,10 @@ export default function Home() {
               Born in Algeria,<br />Built for Creators
             </h2>
             <p className="text-white/60 text-base leading-relaxed mb-5" style={{ fontFamily: "Inter, sans-serif" }}>
-              Blackphics started in a small studio in Algiers with a single printer and a big vision: to give Algerian creatives access to world-class print quality and design services without leaving the country.
+              Blacphics started in a small studio in Algiers with a single printer and a big vision: to give Algerian creatives access to world-class print quality and design services without leaving the country.
             </p>
             <p className="text-white/60 text-base leading-relaxed mb-8" style={{ fontFamily: "Inter, sans-serif" }}>
-              Six years later, we've printed over 15,000 pieces, designed hundreds of brand identities, and built a community of creators who refuse to compromise on quality.
+              Three years later, we've printed over 8,000 pieces, designed dozens of brand identities, and built a community of creators who refuse to compromise on quality.
             </p>
             <Link
               href="/about"
@@ -484,13 +484,13 @@ export default function Home() {
             { src: "https://images.unsplash.com/photo-1774897778836-3b13763e71b3?w=600&h=400&fit=crop&auto=format", span: "aspect-[4/3]" },
             { src: "https://images.unsplash.com/photo-1766149756155-4a8122ad0732?w=600&h=400&fit=crop&auto=format", span: "aspect-[4/3]" },
           ].map(({ src, span }, i) => (
-            <div key={i} data-aos="zoom-in" data-aos-delay={`${i * 80}`} className={`relative rounded-2xl overflow-hidden group bg-[#111] ${span}`}>
+            <div key={i} data-aos="zoom-in" data-aos-delay={`${i * 80}`} className={`relative rounded-2xl overflow-hidden group bg-background ${span}`}>
               <img
                 src={src}
                 alt={`Gallery ${i + 1}`}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
               />
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
+              <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/10 transition-colors duration-300" />
             </div>
           ))}
         </div>

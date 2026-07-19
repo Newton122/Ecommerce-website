@@ -30,7 +30,7 @@ export default function ProductDetail() {
   const { addItem } = useCart();
   const { user, token } = useAuth();
 
-  useSEO({ title: product?.name || "Product", description: product?.description?.slice(0, 160) || "Blackphics product", pathname: `/shop/${id}` });
+  useSEO({ title: product?.name || "Product", description: product?.description?.slice(0, 160) || "Blacphics product", pathname: `/shop/${id}` });
 
   const [imgIdx, setImgIdx] = useState(0);
   const [selectedSize, setSelectedSize] = useState("");
@@ -172,7 +172,7 @@ export default function ProductDetail() {
         <div className="grid lg:grid-cols-2 gap-16 mb-24" data-aos="fade-up">
           {/* Gallery */}
           <div className="space-y-4">
-            <div className="relative aspect-[3/4] rounded-3xl overflow-hidden bg-[#111] group">
+            <div className="relative aspect-[3/4] rounded-3xl overflow-hidden bg-background group">
               <img
                 src={product.images[imgIdx]}
                 alt={product.name}
@@ -182,13 +182,13 @@ export default function ProductDetail() {
                 <>
                   <button
                     onClick={prevImg}
-                    className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-xl bg-black/60 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white hover:bg-black/80 transition-all"
+                    className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-all"
                   >
                     <ChevronLeft size={18} />
                   </button>
                   <button
                     onClick={nextImg}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-xl bg-black/60 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white hover:bg-black/80 transition-all"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-all"
                   >
                     <ChevronRight size={18} />
                   </button>

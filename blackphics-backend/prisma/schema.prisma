@@ -141,7 +141,12 @@ model DesignRequest {
   placement   String
   viewSide    String?
   designImage String
-  mockupImage String
+  mockupImage String?
+  mockupVariant Int?
+  designPosX  Float?
+  designPosY  Float?
+  designRotation Float?
+  designScale Float?
   status      String   @default("pending")
   createdAt   DateTime @default(now())
 }

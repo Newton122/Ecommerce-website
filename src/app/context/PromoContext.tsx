@@ -48,7 +48,7 @@ export function PromoProvider({ children }: { children: ReactNode }) {
   const [dismissedIds, setDismissedIds] = useState<string[]>([]);
 
   useEffect(() => {
-    const stored = sessionStorage.getItem("blackphics_dismissed_promos");
+    const stored = sessionStorage.getItem("blacphics_dismissed_promos");
     if (stored) {
       try {
         setDismissedIds(JSON.parse(stored));
@@ -76,7 +76,7 @@ export function PromoProvider({ children }: { children: ReactNode }) {
     if (activePromo) {
       const next = [...dismissedIds, activePromo.id];
       setDismissedIds(next);
-      sessionStorage.setItem("blackphics_dismissed_promos", JSON.stringify(next));
+      sessionStorage.setItem("blacphics_dismissed_promos", JSON.stringify(next));
       _setActivePromo(null);
     }
   };

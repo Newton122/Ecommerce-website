@@ -67,7 +67,7 @@ export default function ProductCard({ product, aosDelay = 0 }: Props) {
       }}
     >
       {/* Image */}
-      <motion.div className="relative aspect-[3/4] bg-[#111] overflow-hidden" whileHover={{ scale: 1.01 }} transition={{ duration: 0.35 }}>
+      <motion.div className="relative aspect-[3/4] bg-background overflow-hidden" whileHover={{ scale: 1.01 }} transition={{ duration: 0.35 }}>
           <motion.img
             src={product.image}
             alt={product.name}
@@ -77,7 +77,7 @@ export default function ProductCard({ product, aosDelay = 0 }: Props) {
           />
           {/* Dark overlay */}
           <motion.div
-            className="absolute inset-0 bg-black/20"
+            className="absolute inset-0 bg-background/80"
             animate={{ opacity: hovered ? 0.6 : 0 }}
             transition={{ duration: 0.3 }}
           />
@@ -96,7 +96,7 @@ export default function ProductCard({ product, aosDelay = 0 }: Props) {
 
           {outOfStock && (
             <div className="absolute inset-0 flex items-center justify-center">
-              <span className="px-4 py-2 rounded-xl bg-black/80 text-white text-xs font-bold uppercase tracking-widest border border-white/10">
+              <span className="px-4 py-2 rounded-xl bg-foreground/20 text-white text-xs font-bold uppercase tracking-widest border border-white/10">
                 Out of Stock
               </span>
             </div>

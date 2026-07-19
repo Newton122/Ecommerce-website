@@ -39,7 +39,7 @@ export default function ConfirmDialog({
 
   return (
     <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={onCancel} />
+      <div className="absolute inset-0 bg-foreground/15 backdrop-blur-sm" onClick={onCancel} />
       <div className="relative w-full max-w-md rounded-2xl border border-white/[0.08] bg-card p-6 shadow-2xl">
         <h3 className="text-xl font-extrabold text-white mb-2" style={{ fontFamily: "Manrope, sans-serif" }}>{title}</h3>
         <p className="text-white/60 text-sm leading-relaxed mb-6" style={{ fontFamily: "Inter, sans-serif" }}>{message}</p>

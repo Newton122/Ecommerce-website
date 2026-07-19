@@ -80,11 +80,11 @@ export default function MockupPage() {
               <div className="rounded-3xl border border-white/10 bg-background/70 p-6 text-sm text-muted-foreground">
                 <p className="font-semibold text-white mb-3">Design info</p>
                 <div className="space-y-3">
-                  <div className="flex items-center justify-between rounded-2xl bg-slate-950/70 px-4 py-3">
+                  <div className="flex items-center justify-between rounded-2xl bg-background/80 px-4 py-3">
                     <span className="text-xs uppercase tracking-[0.3em] text-white/50">File</span>
                     <span className="text-sm text-white">{fileName ?? "No file selected"}</span>
                   </div>
-                  <div className="flex items-center justify-between rounded-2xl bg-slate-950/70 px-4 py-3">
+                  <div className="flex items-center justify-between rounded-2xl bg-background/80 px-4 py-3">
                     <span className="text-xs uppercase tracking-[0.3em] text-white/50">Size</span>
                     <span className="text-sm text-white">{fileSize ?? "—"}</span>
                   </div>
@@ -100,7 +100,7 @@ export default function MockupPage() {
                   setDragging(true)
                 }}
                 onDragLeave={() => setDragging(false)}
-                className={`relative flex h-[680px] w-full flex-col overflow-hidden rounded-[36px] border border-border bg-slate-950 transition ${dragging ? "border-primary/60 bg-slate-900" : "bg-slate-950"}`}
+                className={`relative flex h-[680px] w-full flex-col overflow-hidden rounded-[36px] border border-border bg-background transition ${dragging ? "border-primary/60 bg-background/90" : "bg-background"}`}
               >
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.16),_transparent_40%),radial-gradient(circle_at_bottom_right,_rgba(168,85,247,0.14),_transparent_30%)] pointer-events-none" />
                 <div className="relative z-10 flex h-full flex-col">
@@ -117,7 +117,7 @@ export default function MockupPage() {
 
                   <div className="relative flex-1 p-6">
                     <div className="absolute inset-6 rounded-[28px] border border-white/10 bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 shadow-inner" />
-                    <div className="relative z-10 h-full overflow-hidden rounded-[28px] bg-slate-950 border border-white/5 p-6 flex items-center justify-center">
+                    <div className="relative z-10 h-full overflow-hidden rounded-[28px] bg-background border border-white/5 p-6 flex items-center justify-center">
                       {!src ? (
                         <div className="text-center">
                           <p className="text-xl font-semibold text-white mb-3">Upload artwork to preview</p>

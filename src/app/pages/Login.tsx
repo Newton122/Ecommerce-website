@@ -31,7 +31,7 @@ export default function LoginPage() {
       <div className="mx-auto max-w-2xl rounded-[32px] border border-border bg-card/90 p-10 shadow-2xl shadow-black/10">
         <div className="mb-8">
           <p className="text-sm uppercase tracking-[0.35em] text-primary">Account access</p>
-          <h1 className="mt-4 text-4xl font-extrabold">Login to Blackphics</h1>
+          <h1 className="mt-4 text-4xl font-extrabold">Login to Blacphics</h1>
           <p className="mt-3 text-muted-foreground">Sign in to access your cart, order history, and custom design workflow.</p>
         </div>
 

@@ -3,7 +3,7 @@ import { z } from "zod";
 import { prisma } from "../lib/prisma.js";
 import { AuthRequest } from "../middleware/auth.js";
 
-const FROM_ADDRESS = "Blackphics <promos@blackphics.com>";
+const FROM_ADDRESS = "Blacphics <promos@blacphics.com>";
 
 const sendPromoEmailSchema = z.object({
   subject: z.string().min(1),

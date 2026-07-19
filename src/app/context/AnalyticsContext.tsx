@@ -13,7 +13,7 @@ interface AnalyticsContextType {
   getEvents: () => AnalyticsEvent[];
 }
 
-const STORAGE_KEY = "blackphics_analytics";
+const STORAGE_KEY = "blacphics_analytics";
 const MAX_EVENTS = 200;
 
 const AnalyticsContext = createContext<AnalyticsContextType | null>(null);

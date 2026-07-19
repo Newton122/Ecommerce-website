@@ -143,7 +143,7 @@ export default function AdminProducts() {
                   <tr key={p.id} className="border-b border-white/[0.06] last:border-0 hover:bg-white/[0.02]">
                     <td className="px-5 py-4">
                       <div className="flex items-center gap-3">
-                        <img src={p.image} alt="" className="w-10 h-12 object-cover rounded-md bg-[#111]" />
+                        <img src={p.image} alt="" className="w-10 h-12 object-cover rounded-md bg-background" />
                         <span className="text-white font-medium" style={{ fontFamily: "Manrope, sans-serif" }}>{p.name}</span>
                       </div>
                     </td>

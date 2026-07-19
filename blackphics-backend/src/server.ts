@@ -94,5 +94,5 @@ app.use((err: unknown, _req: express.Request, res: express.Response, _next: expr
 
 const port = Number(process.env.PORT) || 4000;
 app.listen(port, () => {
-  console.log(`Blackphics API running on http://localhost:${port}`);
+  console.log(`Blacphics API running on http://localhost:${port}`);
 });

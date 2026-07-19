@@ -14,13 +14,13 @@ async function sendOrderStatusEmail(order: { user: { email: string; name: string
   try {
     const { Resend } = await import("resend");
     const resend = new Resend(apiKey);
-    const subject = `Your Blackphics order #${order.id} is ${order.status}`;
+    const subject = `Your Blacphics order #${order.id} is ${order.status}`;
     const html = `
       <div style="font-family: Inter, Arial, sans-serif; color: #111;">
         <h2>Order #${order.id} — ${order.status}</h2>
         <p>Hi ${order.user.name || "there"},</p>
         <p>Your order <strong>#${order.id}</strong> has been updated to: <strong>${order.status}</strong>.</p>
-        <p>Thank you for shopping with Blackphics.</p>
+        <p>Thank you for shopping with Blacphics.</p>
       </div>
     `;
     const result = await resend.emails.send({ from: FROM_ADDRESS, to: order.user.email, subject, html });

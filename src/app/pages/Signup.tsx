@@ -46,7 +46,7 @@ export default function SignupPage() {
       <div className="mx-auto max-w-2xl rounded-[32px] border border-border bg-card/90 p-10 shadow-2xl shadow-black/10">
         <div className="mb-8">
           <p className="text-sm uppercase tracking-[0.35em] text-primary">Create account</p>
-          <h1 className="mt-4 text-4xl font-extrabold">Sign up for Blackphics</h1>
+          <h1 className="mt-4 text-4xl font-extrabold">Sign up for Blacphics</h1>
           <p className="mt-3 text-muted-foreground">Create your account to save your cart, manage orders, and order custom designs faster.</p>
         </div>
 

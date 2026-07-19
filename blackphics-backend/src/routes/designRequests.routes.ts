@@ -29,7 +29,7 @@ async function requireAdminUser(req: any) {
 }
 
 router.post("/", asyncHandler(async (req: any, res: Response) => {
-  const { shirtType, shirtColor, placement, viewSide, designImage, mockupImage } = req.body;
+  const { shirtType, shirtColor, placement, viewSide, designImage, mockupImage, designPosX, designPosY, mockupVariant, designRotation, designScale } = req.body;
   const user = await getRequestUser(req);
 
   if (!shirtType || !shirtColor || !placement || !designImage) {
@@ -47,6 +47,11 @@ router.post("/", asyncHandler(async (req: any, res: Response) => {
       viewSide: viewSide || null,
       designImage,
       mockupImage: mockupImage || null,
+      mockupVariant: mockupVariant ?? 0,
+      designPosX: designPosX ?? null,
+      designPosY: designPosY ?? null,
+      designRotation: designRotation ?? null,
+      designScale: designScale ?? null,
     },
   });
 

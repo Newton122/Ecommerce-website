@@ -55,7 +55,7 @@ export default function ProfilePage() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
-                className="w-full bg-black/30 border border-white/[0.08] text-white rounded-xl px-4 py-3 text-sm outline-none focus:border-primary/50"
+                className="w-full bg-input-background border border-white/[0.08] text-white rounded-xl px-4 py-3 text-sm outline-none focus:border-primary/50"
               />
             </div>
             <div>
@@ -65,7 +65,7 @@ export default function ProfilePage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full bg-black/30 border border-white/[0.08] text-white rounded-xl px-4 py-3 text-sm outline-none focus:border-primary/50"
+                className="w-full bg-input-background border border-white/[0.08] text-white rounded-xl px-4 py-3 text-sm outline-none focus:border-primary/50"
               />
             </div>
 

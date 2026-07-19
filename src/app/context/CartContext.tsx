@@ -27,7 +27,7 @@ interface CartContextType {
 
 const CartContext = createContext<CartContextType | null>(null);
 
-const STORAGE_KEY = "blackphics-cart";
+const STORAGE_KEY = "blacphics-cart";
 
 function loadCartItems(): CartItem[] {
   if (typeof window === "undefined") return [];

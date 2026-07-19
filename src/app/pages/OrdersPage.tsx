@@ -162,7 +162,7 @@ export default function OrdersPage() {
                   <div className="border-t border-white/[0.06] pt-4 mt-4 space-y-3">
                     {order.items.map((item: any, idx: number) => (
                       <div key={idx} className="flex items-center gap-3">
-                        <div className="w-10 h-12 rounded-lg overflow-hidden bg-[#111] shrink-0">
+                        <div className="w-10 h-12 rounded-lg overflow-hidden bg-background shrink-0">
                           <img src={item.product?.image || item.image} alt="" className="w-full h-full object-cover" />
                         </div>
                         <div className="flex-1 min-w-0">

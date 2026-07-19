@@ -46,7 +46,7 @@ export default function CollectionDetail() {
 
   React.useEffect(() => {
     if (collection) {
-      document.title = `${collection.name} — Blackphics`;
+      document.title = `${collection.name} — Blacphics`;
       let meta = document.querySelector('meta[name="description"]') as HTMLMetaElement | null;
       if (!meta) {
         meta = document.createElement("meta");

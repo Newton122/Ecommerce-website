@@ -7,7 +7,7 @@ export const reviews: Review[] = [
     location: "Algiers",
     avatar: "AK",
     rating: 5,
-    text: "Blackphics delivered beyond expectations. The print quality on my custom design is insane — zero bleeding, sharp edges, feels premium.",
+    text: "Blacphics delivered beyond expectations. The print quality on my custom design is insane — zero bleeding, sharp edges, feels premium.",
     product: "Custom Print Tee",
   },
   {

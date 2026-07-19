@@ -8,17 +8,17 @@ import type { Product } from "../data/types";
 import { useSEO } from "../hooks/useSEO";
 
 export const metadata: Metadata = {
-  title: "Shop All — Blackphics",
-  description: "Browse the full Blackphics collection. Signature, oversized, graphic and essential apparel printed in Algeria.",
+  title: "Shop All — Blacphics",
+  description: "Browse the full Blacphics collection. Signature, oversized, graphic and essential apparel printed in Algeria.",
   openGraph: {
-    title: "Shop All — Blackphics",
-    description: "Browse the full Blackphics collection. Signature, oversized, graphic and essential apparel printed in Algeria.",
+    title: "Shop All — Blacphics",
+    description: "Browse the full Blacphics collection. Signature, oversized, graphic and essential apparel printed in Algeria.",
     images: ["https://images.unsplash.com/photo-1760126130290-bbbc9b41292a?w=1200&h=630&fit=crop&auto=format"],
   },
 };
 
 export default function Shop() {
-  useSEO({ title: "Shop All", description: "Browse the full Blackphics collection. Signature, oversized, graphic and essential apparel printed in Algeria.", pathname: "/shop" });
+  useSEO({ title: "Shop All", description: "Browse the full Blacphics collection. Signature, oversized, graphic and essential apparel printed in Algeria.", pathname: "/shop" });
 
   const BANNER = "https://images.unsplash.com/photo-1760126130290-bbbc9b41292a?w=1920&h=500&fit=crop&auto=format";
   const categories = ["All", "signature", "oversized", "graphic", "essential", "limited"];

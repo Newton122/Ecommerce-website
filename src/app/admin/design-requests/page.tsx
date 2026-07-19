@@ -25,7 +25,12 @@ interface DesignRequest {
   placement: string;
   viewSide?: string;
   designImage: string;
-  mockupImage: string;
+  mockupImage?: string;
+  mockupVariant?: number;
+  designPosX?: number;
+  designPosY?: number;
+  designRotation?: number;
+  designScale?: number;
   status: string;
   createdAt: string;
 }
@@ -136,7 +141,7 @@ export default function AdminDesignRequests() {
                       value={req.status}
                       onChange={(e) => updateStatus(req.id, e.target.value)}
                       disabled={actioningId === req.id}
-                      className="bg-black/40 border border-white/10 text-white text-xs rounded-lg px-2 py-1.5 outline-none focus:border-primary disabled:opacity-50"
+                      className="bg-background/80 border border-white/10 text-white text-xs rounded-lg px-2 py-1.5 outline-none focus:border-primary disabled:opacity-50"
                     >
                       {STATUS_OPTIONS.map((s) => (
                         <option key={s} value={s}>{s.replace("_", " ")}</option>
@@ -153,24 +158,26 @@ export default function AdminDesignRequests() {
                   </div>
                 </div>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <div className="flex-1 rounded-xl border border-white/[0.08] bg-black/20 p-3">
+                  <div className="flex-1 rounded-xl border border-white/[0.08] bg-background/80 p-3">
                     <p className="text-white/50 text-xs uppercase tracking-widest mb-2" style={{ fontFamily: "Inter, sans-serif" }}>Preview</p>
-                    <div className="relative w-full aspect-[3/4] rounded-lg overflow-hidden bg-black/40">
-                      <img src={req.mockupImage} alt="Mockup" className="w-full h-full object-contain" />
-                      <div
-                        className="absolute flex items-center justify-center"
-                        style={{
-                          left: (PLACEMENT_POSITIONS[req.placement] || PLACEMENT_POSITIONS["Front Center"]).left,
-                          top: (PLACEMENT_POSITIONS[req.placement] || PLACEMENT_POSITIONS["Front Center"]).top,
-                          width: (PLACEMENT_POSITIONS[req.placement] || PLACEMENT_POSITIONS["Front Center"]).width,
-                          height: (PLACEMENT_POSITIONS[req.placement] || PLACEMENT_POSITIONS["Front Center"]).height,
-                        }}
-                      >
-                        <img src={req.designImage} alt="Design" className="w-full h-full object-contain" style={{ transform: "rotate(-2deg) scale(0.95)", filter: "contrast(1.05) saturate(0.9)", opacity: 0.92 }} />
+                    <div className="p-6 rounded-2xl bg-background/80 flex items-center justify-center">
+                      <div className="relative w-full max-w-[520px]">
+                        <img src={req.mockupImage} alt="Mockup" className="w-full h-auto" />
+                        <div
+                          className="absolute flex items-center justify-center"
+                          style={{
+                            left: `calc(${(PLACEMENT_POSITIONS[req.placement] || PLACEMENT_POSITIONS["Front Center"]).left} + ${req.designPosX || 0}%)`,
+                            top: `calc(${(PLACEMENT_POSITIONS[req.placement] || PLACEMENT_POSITIONS["Front Center"]).top} + ${req.designPosY || 0}%)`,
+                            width: (PLACEMENT_POSITIONS[req.placement] || PLACEMENT_POSITIONS["Front Center"]).width,
+                            height: (PLACEMENT_POSITIONS[req.placement] || PLACEMENT_POSITIONS["Front Center"]).height,
+                          }}
+                        >
+                          <img src={req.designImage} alt="Design" className="max-w-full max-h-full object-contain" style={{ transform: `rotate(${req.designRotation ?? -2}deg) scale(${req.designScale ?? 0.95})`, filter: "contrast(1.05) saturate(0.9)", opacity: 0.92 }} />
+                        </div>
                       </div>
                     </div>
                   </div>
-                  <div className="flex-1 rounded-xl border border-white/[0.08] bg-black/20 p-3">
+                  <div className="flex-1 rounded-xl border border-white/[0.08] bg-background/80 p-3">
                     <p className="text-white/50 text-xs uppercase tracking-widest mb-2" style={{ fontFamily: "Inter, sans-serif" }}>Uploaded Design</p>
                     <img src={req.designImage} alt="Design" className="w-full h-48 object-contain rounded-lg" />
                   </div>

@@ -172,6 +172,11 @@ export default function CustomDesign() {
           viewSide,
           designImage,
           mockupImage,
+          designPosX: designPos.x,
+          designPosY: designPos.y,
+          mockupVariant,
+          designRotation,
+          designScale,
         }),
       });
 
@@ -254,13 +259,13 @@ export default function CustomDesign() {
           </p>
           <div className="flex gap-3 justify-center">
             <a
-              href="https://wa.me/213791938758?text=Hello%20Blackphics%2C%20I%27m%20interested%20in%20a%20custom%20design"
+              href="https://wa.me/213791938758?text=Hello%20Blacphics%2C%20I%27m%20interested%20in%20a%20custom%20design"
               className="px-5 py-3 bg-[#25d366] text-white rounded-xl font-bold text-sm flex items-center gap-2 hover:bg-[#20bd5a] transition-colors"
               style={{ fontFamily: "Manrope, sans-serif" }}
               onClick={(e) => {
                 e.preventDefault();
-                const appUrl = `whatsapp://send?phone=213791938758&text=${encodeURIComponent("Hello Blackphics, I'm interested in a custom design")}`;
-                const webUrl = `https://wa.me/213791938758?text=${encodeURIComponent("Hello Blackphics, I'm interested in a custom design")}`;
+                const appUrl = `whatsapp://send?phone=213791938758&text=${encodeURIComponent("Hello Blacphics, I'm interested in a custom design")}`;
+                const webUrl = `https://wa.me/213791938758?text=${encodeURIComponent("Hello Blacphics, I'm interested in a custom design")}`;
                 try {
                   window.location.href = appUrl;
                   setTimeout(() => (window.location.href = webUrl), 600);
@@ -516,7 +521,7 @@ export default function CustomDesign() {
             </h3>
             <div
               ref={previewContainerRef}
-              className="relative rounded-3xl overflow-hidden bg-[#111] border border-white/[0.08] flex items-center justify-center p-8 select-none"
+              className="relative rounded-3xl overflow-hidden bg-background border border-white/[0.08] flex items-center justify-center p-8 select-none"
               onMouseMove={handleMouseMove}
               onMouseUp={handleMouseUp}
               onMouseLeave={handleMouseUp}
@@ -566,7 +571,7 @@ export default function CustomDesign() {
               <button
                 type="button"
                 onClick={() => setViewSide((s) => (s === "front" ? "back" : "front"))}
-                className="absolute left-3 top-1/2 -translate-y-1/2 inline-flex items-center justify-center rounded-full bg-black/60 text-white/80 hover:text-white border border-white/10 hover:border-white/30 backdrop-blur-sm transition-all"
+                className="absolute left-3 top-1/2 -translate-y-1/2 inline-flex items-center justify-center rounded-full bg-white/10 text-white/80 hover:text-white border border-white/10 hover:border-white/30 backdrop-blur-sm transition-all"
                 aria-label={viewSide === "front" ? "Show back" : "Show front"}
               >
                 <ChevronLeft size={18} />
@@ -574,7 +579,7 @@ export default function CustomDesign() {
               <button
                 type="button"
                 onClick={() => setViewSide((s) => (s === "front" ? "back" : "front"))}
-                className="absolute right-3 top-1/2 -translate-y-1/2 inline-flex items-center justify-center rounded-full bg-black/60 text-white/80 hover:text-white border border-white/10 hover:border-white/30 backdrop-blur-sm transition-all"
+                className="absolute right-3 top-1/2 -translate-y-1/2 inline-flex items-center justify-center rounded-full bg-white/10 text-white/80 hover:text-white border border-white/10 hover:border-white/30 backdrop-blur-sm transition-all"
                 aria-label={viewSide === "front" ? "Show back" : "Show front"}
               >
                 <ChevronRight size={18} />
@@ -585,18 +590,18 @@ export default function CustomDesign() {
                   <button
                     type="button"
                     onClick={() => setMockupVariant((v) => (v - 1 + mockupList.length) % mockupList.length)}
-                    className="inline-flex items-center justify-center rounded-full bg-black/60 text-white/80 hover:text-white border border-white/10 hover:border-white/30 backdrop-blur-sm transition-all w-8 h-8"
+                    className="inline-flex items-center justify-center rounded-full bg-white/10 text-white/80 hover:text-white border border-white/10 hover:border-white/30 backdrop-blur-sm transition-all w-8 h-8"
                     aria-label="Previous mockup"
                   >
                     <ChevronLeft size={16} />
                   </button>
-                  <span className="text-white/70 text-xs font-medium bg-black/60 border border-white/10 rounded-full px-3 py-1 backdrop-blur-sm">
+                  <span className="text-white/70 text-xs font-medium bg-white/10 border border-white/10 rounded-full px-3 py-1 backdrop-blur-sm">
                     {mockupVariant + 1} / {mockupList.length}
                   </span>
                   <button
                     type="button"
                     onClick={() => setMockupVariant((v) => (v + 1) % mockupList.length)}
-                    className="inline-flex items-center justify-center rounded-full bg-black/60 text-white/80 hover:text-white border border-white/10 hover:border-white/30 backdrop-blur-sm transition-all w-8 h-8"
+                    className="inline-flex items-center justify-center rounded-full bg-white/10 text-white/80 hover:text-white border border-white/10 hover:border-white/30 backdrop-blur-sm transition-all w-8 h-8"
                     aria-label="Next mockup"
                   >
                     <ChevronRight size={16} />
@@ -606,7 +611,7 @@ export default function CustomDesign() {
 
               {previewUrl && (
                 <div className="absolute bottom-16 left-1/2 -translate-x-1/2 flex flex-wrap items-center justify-center gap-2">
-                  <div className="flex items-center gap-1 bg-black/70 backdrop-blur-sm border border-white/10 rounded-full px-2 py-2">
+                  <div className="flex items-center gap-1 bg-card/80 backdrop-blur-sm border border-white/10 rounded-full px-2 py-2">
                     <button
                       type="button"
                       onClick={() => setDesignRotation((r) => r - 1)}
@@ -644,7 +649,7 @@ export default function CustomDesign() {
                       <ZoomIn size={16} />
                     </button>
                   </div>
-                  <div className="flex items-center gap-1 bg-black/70 backdrop-blur-sm border border-white/10 rounded-full px-2 py-2">
+                  <div className="flex items-center gap-1 bg-card/80 backdrop-blur-sm border border-white/10 rounded-full px-2 py-2">
                     <button
                       type="button"
                       onClick={() => setDesignRotation(0)}
@@ -654,7 +659,7 @@ export default function CustomDesign() {
                       Reset
                     </button>
                   </div>
-                  <div className="flex items-center gap-1 bg-black/70 backdrop-blur-sm border border-white/10 rounded-full px-2 py-2">
+                  <div className="flex items-center gap-1 bg-card/80 backdrop-blur-sm border border-white/10 rounded-full px-2 py-2">
                     {MOCKUP_COLORS.map((c) => (
                       <button
                         key={c.name}
@@ -674,7 +679,7 @@ export default function CustomDesign() {
                   <button
                     type="button"
                     onClick={() => { setUploadedFile(null); setPreviewUrl(null); setDesignPos({ x: 0, y: 0 }); }}
-                    className="inline-flex items-center justify-center rounded-full bg-black/70 backdrop-blur-sm border border-white/10 text-white/80 hover:text-red-400 hover:border-red-400/50 transition-all w-8 h-8"
+                    className="inline-flex items-center justify-center rounded-full bg-card/80 backdrop-blur-sm border border-white/10 text-white/80 hover:text-red-400 hover:border-red-400/50 transition-all w-8 h-8"
                     aria-label="Remove design"
                   >
                     <X size={16} />
@@ -683,7 +688,7 @@ export default function CustomDesign() {
               )}
 
               <div className="absolute bottom-4 left-4 right-4">
-                <div className="bg-black/70 backdrop-blur-sm border border-white/10 rounded-xl px-4 py-3">
+                <div className="bg-card/80 backdrop-blur-sm border border-white/10 rounded-xl px-4 py-3">
                   <div className="flex items-center justify-between text-xs">
                     <span className="text-white/50" style={{ fontFamily: "Inter, sans-serif" }}>{shirtType}</span>
                     <span className="text-white/50" style={{ fontFamily: "Inter, sans-serif" }}>{placement}</span>

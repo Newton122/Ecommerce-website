@@ -38,7 +38,7 @@ export default function Footer() {
                 <Zap size={18} className="text-black fill-black" />
               </div>
               <span className="font-extrabold text-xl tracking-tight text-foreground group-hover:text-primary transition-colors duration-200" style={{ fontFamily: "Manrope, sans-serif" }}>
-                BLACKPHICS
+                BLACPHICS
               </span>
             </Link>
             <p className="text-foreground/70 text-sm leading-relaxed mb-6 font-semibold" style={{ fontFamily: "Inter, sans-serif" }}>
@@ -118,7 +118,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-3">
                 <Phone size={15} className="text-primary shrink-0" />
-                <WhatsAppLink phone="213791938758" text="Hello Blackphics, I'd like to chat about a project" className="text-foreground/70 hover:text-primary font-semibold text-sm transition-all duration-200 hover:translate-x-1" ariaLabel="WhatsApp">
+                <WhatsAppLink phone="213791938758" text="Hello Blacphics, I'd like to chat about a project" className="text-foreground/70 hover:text-primary font-semibold text-sm transition-all duration-200 hover:translate-x-1" ariaLabel="WhatsApp">
                   +213 791 938 758
                 </WhatsAppLink>
               </li>
@@ -129,7 +129,7 @@ export default function Footer() {
         {/* Bottom bar */}
           <div className="border-t border-border pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-foreground/60 text-xs font-semibold" style={{ fontFamily: "Inter, sans-serif" }}>
-            © 2025 Blackphics. All rights reserved.
+            © 2025 Blacphics. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
             {[

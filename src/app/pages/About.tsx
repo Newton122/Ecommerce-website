@@ -15,7 +15,7 @@ const values = [
   {
     icon: Target,
     title: "Creator-Centric",
-    desc: "We built Blackphics for creators — people who have something to say and need the tools to say it loudly.",
+    desc: "We built Blacphics for creators — people who have something to say and need the tools to say it loudly.",
     color: "#d4a817",
   },
   {
@@ -33,12 +33,10 @@ const values = [
 ];
 
 const milestones = [
-  { year: "2019", event: "Blackphics founded in Algiers with one DTF printer and a vision." },
-  { year: "2020", event: "First 100 clients. Expanded to graphic design services." },
-  { year: "2021", event: "Added photography studio. Launched nationwide shipping." },
-  { year: "2022", event: "1,000+ clients milestone. Opened branding & identity division." },
-  { year: "2023", event: "Built the online platform. 10,000+ prints delivered." },
-  { year: "2025", event: "15,000+ prints, 800+ design projects, 1,200+ happy clients — and counting." },
+  { year: "2023", event: "Blacphics founded in Algiers with one DTF printer and a vision." },
+  { year: "2024", event: "First 500 clients. Expanded to graphic design and photography services." },
+  { year: "2025", event: "Launched online platform. 5,000+ prints delivered, 200+ design projects." },
+  { year: "2026", event: "8,000+ prints, 300+ design projects, 500+ happy clients — and counting." },
 ];
 
 export default function About() {
@@ -46,14 +44,14 @@ export default function About() {
     <div className="bg-background min-h-screen">
       {/* Hero */}
       <div className="relative h-[60vh] min-h-96 overflow-hidden" data-aos="fade-up">
-        <img src={HERO_IMG} alt="Blackphics studio" className="w-full h-full object-cover" />
+        <img src={HERO_IMG} alt="Blacphics studio" className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-background" />
         <div className="absolute inset-0 flex flex-col items-center justify-center pt-16 text-center px-6">
           <p className="text-primary text-xs uppercase tracking-widest font-semibold mb-4" style={{ fontFamily: "Inter, sans-serif" }}>
             Our Story
           </p>
           <h1 className="text-5xl sm:text-7xl font-extrabold text-white" style={{ fontFamily: "Manrope, sans-serif" }}>
-            About Blackphics
+            About Blacphics
           </h1>
         </div>
       </div>
@@ -65,7 +63,7 @@ export default function About() {
             <p className="text-white/70 text-xl sm:text-2xl leading-relaxed font-light" style={{ fontFamily: "Inter, sans-serif" }}>
               "We believe that{" "}
               <span className="text-white font-semibold">every Algerian creator deserves access</span>{" "}
-              to world-class tools. Blackphics exists to close that gap — one print, one brand, one photo at a time."
+              to world-class tools. Blacphics exists to close that gap — one print, one brand, one photo at a time."
             </p>
           </div>
         </div>
@@ -81,17 +79,17 @@ export default function About() {
                 Born in Algiers,<br />Built for the World
               </h2>
               <p className="text-white/60 text-base leading-relaxed mb-4" style={{ fontFamily: "Inter, sans-serif" }}>
-                In 2019, Blackphics was a dream and a single DTF printer in a small Algiers apartment. The founder, seeing a gap in quality creative services accessible to everyday Algerian entrepreneurs and creators, set out to build something different.
+                In 2023, Blacphics was a dream and a single DTF printer in a small Algiers apartment. The founder, seeing a gap in quality creative services accessible to everyday Algerian entrepreneurs and creators, set out to build something different.
               </p>
               <p className="text-white/60 text-base leading-relaxed mb-4" style={{ fontFamily: "Inter, sans-serif" }}>
                 What started as a print-on-demand side project became a full-service creative studio. We added graphic design, then photography, then branding — each service driven by what our clients actually needed.
               </p>
               <p className="text-white/60 text-base leading-relaxed" style={{ fontFamily: "Inter, sans-serif" }}>
-                Today, Blackphics serves clients across all 58 wilayas, from solo creators to small businesses, startups, and NGOs. The mission hasn't changed: make great creative work accessible in Algeria.
+                Today, Blacphics serves clients across all 58 wilayas, from solo creators to small businesses, startups, and NGOs. The mission hasn't changed: make great creative work accessible in Algeria.
               </p>
             </div>
             <div className="relative rounded-3xl overflow-hidden aspect-[4/3]">
-              <img src={TEAM_IMG} alt="Blackphics team" className="w-full h-full object-cover" />
+              <img src={TEAM_IMG} alt="Blacphics team" className="w-full h-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
             </div>
           </div>
@@ -136,7 +134,7 @@ export default function About() {
                 Creative Director & Founder — Algiers, Algeria
               </p>
               <p className="text-white/60 text-base leading-relaxed mb-4" style={{ fontFamily: "Inter, sans-serif" }}>
-                A self-taught designer and entrepreneur, our founder built Blackphics from scratch — learning printing, design, photography, and business in parallel. His philosophy: don't wait for permission to create something great.
+                A self-taught designer and entrepreneur, our founder built Blacphics from scratch — learning printing, design, photography, and business in parallel. His philosophy: don't wait for permission to create something great.
               </p>
               <p className="text-white/60 text-base leading-relaxed mb-8" style={{ fontFamily: "Inter, sans-serif" }}>
                 When not running the studio, he mentors young Algerian designers and advocates for building a sustainable creative economy in North Africa.

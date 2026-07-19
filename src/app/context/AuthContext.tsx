@@ -22,8 +22,8 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
-const TOKEN_KEY = "blackphics_token";
-const USER_KEY = "blackphics_user";
+const TOKEN_KEY = "blacphics_token";
+const USER_KEY = "blacphics_user";
 
 function getApiUrl() {
   if (typeof window === "undefined") return "/api";

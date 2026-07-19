@@ -35,21 +35,21 @@ export default function Collections() {
   }, []);
 
   React.useEffect(() => {
-    document.title = "Collections — Blackphics";
+    document.title = "Collections — Blacphics";
     let meta = document.querySelector('meta[name="description"]') as HTMLMetaElement | null;
     if (!meta) {
       meta = document.createElement("meta");
       meta.name = "description";
       document.head.appendChild(meta);
     }
-    meta.content = "Browse Blackphics collections: men's, women's, unisex, kids, and brand collabs.";
+    meta.content = "Browse Blacphics collections: men's, women's, unisex, kids, and brand collabs.";
     let ogTitle = document.querySelector('meta[property="og:title"]') as HTMLMetaElement | null;
     if (!ogTitle) {
       ogTitle = document.createElement("meta");
       ogTitle.setAttribute("property", "og:title");
       document.head.appendChild(ogTitle);
     }
-    ogTitle.content = "Collections — Blackphics";
+    ogTitle.content = "Collections — Blacphics";
 
     let ogDesc = document.querySelector('meta[property="og:description"]') as HTMLMetaElement | null;
     if (!ogDesc) {

@@ -43,7 +43,7 @@ export default function Navbar() {
         <div className="flex h-16 items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
             <span className="text-xl font-extrabold tracking-tight" style={{ fontFamily: "Manrope, sans-serif" }}>
-              BLACK<span className="text-primary">PHICS</span>
+              BLAC<span className="text-primary">PHICS</span>
             </span>
           </Link>
 
@@ -121,7 +121,7 @@ export default function Navbar() {
                         className="flex flex-col items-start gap-1"
                       >
                         {n.image && (
-                          <div className="w-full h-24 rounded-md overflow-hidden bg-black/40 mb-1">
+                          <div className="w-full h-24 rounded-md overflow-hidden bg-background/80 mb-1">
                             <img
                               src={n.image}
                               alt="Design preview"

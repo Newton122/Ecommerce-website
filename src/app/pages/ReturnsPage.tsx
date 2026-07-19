@@ -7,7 +7,7 @@ export default function ReturnsPage() {
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <h1 className="text-4xl font-extrabold text-white mb-6" style={{ fontFamily: "Manrope, sans-serif" }}>Returns & Refund Policy</h1>
         <div className="space-y-6 text-white/70 text-sm leading-relaxed" style={{ fontFamily: "Inter, sans-serif" }}>
-          <p>We want you to love your Blackphics order. If something isn't right, you can request a return or exchange within 14 days of delivery.</p>
+          <p>We want you to love your Blacphics order. If something isn't right, you can request a return or exchange within 14 days of delivery.</p>
           <ul className="space-y-3 list-disc list-inside marker:text-primary">
             <li>Items must be unworn, unwashed, and in their original packaging.</li>
             <li>Custom-printed products can only be returned if there is a manufacturing defect or error on our part.</li>

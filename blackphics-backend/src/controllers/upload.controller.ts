@@ -25,7 +25,7 @@ export async function uploadImage(req: Request, res: Response) {
     }
 
     const stream = cloudinary.v2.uploader.upload_stream(
-      { folder: "blackphics", resource_type: "image" },
+      { folder: "blacphics", resource_type: "image" },
       (error, result) => {
         if (error || !result) {
           return res.status(500).json({ error: error?.message || "Upload to Cloudinary failed" });

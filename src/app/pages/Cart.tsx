@@ -117,7 +117,7 @@ export default function Cart() {
                   key={`${item.id}-${item.size}-${item.color}`}
                   className={`flex gap-5 p-5 rounded-2xl border transition-all ${itemOOS ? "border-red-500/20 bg-red-500/5" : "border-white/[0.06] bg-card hover:border-white/10"}`}
                 >
-                  <div className="w-24 h-28 rounded-xl overflow-hidden bg-[#111] shrink-0">
+                  <div className="w-24 h-28 rounded-xl overflow-hidden bg-background shrink-0">
                     <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
                   </div>
                   <div className="flex-1 min-w-0">

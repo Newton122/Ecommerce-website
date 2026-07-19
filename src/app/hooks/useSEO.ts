@@ -2,13 +2,13 @@
 
 import { useEffect } from "react";
 
-const DEFAULT_TITLE = "Blackphics — Algeria's Premier Creative Studio";
+const DEFAULT_TITLE = "Blacphics — Algeria's Premier Creative Studio";
 const DEFAULT_DESCRIPTION = "Custom apparel, graphic design, photography and branding from Algeria. DTF, screen print, sublimation — any design, any fabric, any quantity.";
 
 export function useSEO({ title, description, pathname }: { title?: string; description?: string; pathname?: string }) {
   useEffect(() => {
     if (typeof document === "undefined") return;
-    const fullTitle = title ? `${title} — Blackphics` : DEFAULT_TITLE;
+    const fullTitle = title ? `${title} — Blacphics` : DEFAULT_TITLE;
     const metaDescription = description || DEFAULT_DESCRIPTION;
 
     document.title = fullTitle;
@@ -44,7 +44,7 @@ export function useSEO({ title, description, pathname }: { title?: string; descr
         canonical.setAttribute("rel", "canonical");
         document.head.appendChild(canonical);
       }
-      canonical.setAttribute("href", `https://blackphics.com${pathname}`);
+      canonical.setAttribute("href", `https://blacphics.com${pathname}`);
     }
   }, [title, description, pathname]);
 }

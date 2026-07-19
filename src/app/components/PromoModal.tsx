@@ -11,11 +11,11 @@ export default function PromoModal() {
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={dismissPromo} />
+      <div className="absolute inset-0 bg-foreground/20 backdrop-blur-sm" onClick={dismissPromo} />
       <div className="relative w-full max-w-lg bg-card border border-white/[0.08] rounded-3xl overflow-hidden shadow-2xl">
         <button
           onClick={dismissPromo}
-          className="absolute top-4 right-4 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors"
+          className="absolute top-4 right-4 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-foreground/10 text-white hover:bg-foreground/15 transition-colors"
           aria-label="Close"
         >
           <X size={16} />

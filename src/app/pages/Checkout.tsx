@@ -258,7 +258,7 @@ export default function Checkout() {
               <div className="space-y-3 max-h-60 overflow-y-auto pr-1">
                 {items.map((item) => (
                   <div key={`${item.id}-${item.size}-${item.color}`} className="flex gap-3">
-                    <div className="relative w-12 h-14 rounded-lg overflow-hidden bg-[#111] shrink-0">
+                    <div className="relative w-12 h-14 rounded-lg overflow-hidden bg-background shrink-0">
                       <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
                       <div className="absolute -top-1 -right-1 w-4 h-4 bg-primary text-black text-[9px] font-bold rounded-full flex items-center justify-center">
                         {item.quantity}

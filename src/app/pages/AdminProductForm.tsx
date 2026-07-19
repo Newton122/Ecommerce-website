@@ -232,7 +232,7 @@ export default function AdminProductForm() {
               <input className={inputClass} value={form.image} onChange={(e) => { update("image", e.target.value); setImagePreview(e.target.value); }} placeholder="https://..." />
             </div>
             {imagePreview && (
-              <img src={imagePreview} alt="preview" className="mt-3 w-24 h-28 object-cover rounded-lg bg-[#111] border border-white/10" />
+              <img src={imagePreview} alt="preview" className="mt-3 w-24 h-28 object-cover rounded-lg bg-background border border-white/10" />
             )}
           </div>
 

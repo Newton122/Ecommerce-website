@@ -7,7 +7,7 @@ export default function PrivacyPage() {
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <h1 className="text-4xl font-extrabold text-white mb-6" style={{ fontFamily: "Manrope, sans-serif" }}>Privacy Policy</h1>
         <div className="space-y-6 text-white/70 text-sm leading-relaxed" style={{ fontFamily: "Inter, sans-serif" }}>
-          <p>At Blackphics, we respect your privacy. We collect only the information necessary to process your orders, such as your name, email, shipping address, and phone number.</p>
+          <p>At Blacphics, we respect your privacy. We collect only the information necessary to process your orders, such as your name, email, shipping address, and phone number.</p>
           <ul className="space-y-3 list-disc list-inside marker:text-primary">
             <li>Your payment information is processed securely by our payment partners and is never stored on our servers in plain text.</li>
             <li>We do not sell your personal data to third parties.</li>
