@@ -43,7 +43,7 @@ async function sendEmail(to: string, subject: string, html: string): Promise<boo
       subject,
       html,
     });
-    console.log("Email sent", data.id, "to", to);
+    console.log("Email sent to", to);
     return true;
   } catch (error) {
     console.error("Failed to send email to", to, error);
