@@ -215,15 +215,17 @@ export default function AdminDesignRequests() {
                     <p className="text-white/50 text-xs mt-1" style={{ fontFamily: "Inter, sans-serif" }}>
                       {req.shirtColor} · {req.placement} · {req.viewSide || "front"} · {new Date(req.createdAt).toLocaleString()}
                     </p>
-                    {req.userPhone && (
+                    {req.userPhone ? (
                       <a
                         href={`https://wa.me/${String(req.userPhone).replace(/[^\d]/g, "")}`}
                         target="_blank"
                         rel="noreferrer"
-                        className="inline-flex items-center gap-1 text-[#25d366] text-xs mt-1 hover:underline"
+                        className="inline-flex items-center gap-1.5 text-[#25d366] text-xs font-medium mt-2 hover:underline"
                       >
-                        <MessageSquare size={12} /> WhatsApp
+                        <MessageSquare size={14} /> WhatsApp
                       </a>
+                    ) : (
+                      <span className="text-white/25 text-[10px] mt-1.5">No phone provided</span>
                     )}
                   </div>
                   <div className="flex items-center gap-2">
