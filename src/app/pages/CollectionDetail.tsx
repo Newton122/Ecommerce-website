@@ -32,7 +32,7 @@ export default function CollectionDetail() {
     const fetchCollection = async () => {
       if (!id) return;
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "/api"}/collections/${id}`);
+        const res = await fetch(`${"/api"}/collections/${id}`);
         if (res.ok) {
           const data = await res.json();
           setCollection(data);

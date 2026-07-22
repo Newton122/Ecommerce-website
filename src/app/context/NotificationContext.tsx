@@ -25,10 +25,6 @@ interface NotificationContextType {
 const NotificationContext = createContext<NotificationContextType | null>(null);
 
 function getApiUrl() {
-  if (typeof window === "undefined") return "/api";
-  try {
-    if (process.env.NEXT_PUBLIC_API_URL) return process.env.NEXT_PUBLIC_API_URL;
-  } catch {}
   return "/api";
 }
 

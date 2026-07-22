@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { useAuth } from "../context/AuthContext";
 
-const API = process.env.NEXT_PUBLIC_API_URL || "/api";
+const API = "/api";
 
 function getEditId(pathname: string): number | null {
   const match = pathname.match(/^\/admin\/products\/(\d+)\/edit$/);

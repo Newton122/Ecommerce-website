@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "../context/AuthContext";
 import ConfirmDialog from "../components/ConfirmDialog";
 
-const API = process.env.NEXT_PUBLIC_API_URL || "/api";
+const API = "/api";
 
 type User = {
   id: number;

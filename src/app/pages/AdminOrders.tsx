@@ -5,7 +5,7 @@ import { useAuth } from "../context/AuthContext";
 import { toast } from "sonner";
 import WhatsAppLink from "../components/WhatsAppLink";
 
-const API = process.env.NEXT_PUBLIC_API_URL || "/api";
+const API = "/api";
 
 const STATUSES = ["pending", "paid", "shipped", "delivered", "cancelled"] as const;
 

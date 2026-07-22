@@ -20,7 +20,7 @@ export default function Collections() {
   React.useEffect(() => {
     const fetchCollections = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "/api"}/collections`);
+        const res = await fetch(`${"/api"}/collections`);
         if (res.ok) {
           const data = await res.json();
           setCollections(data);

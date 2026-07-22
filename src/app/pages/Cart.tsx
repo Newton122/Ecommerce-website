@@ -20,7 +20,7 @@ export default function Cart() {
     if (!token || items.length === 0) return;
     setStockLoading(true);
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "/api"}/products`, {
+      const res = await fetch(`${"/api"}/products`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (res.ok) {

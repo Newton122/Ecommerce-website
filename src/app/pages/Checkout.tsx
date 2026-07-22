@@ -47,7 +47,7 @@ export default function Checkout() {
     setError(null);
 
     try {
-      const stockCheck = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "/api"}/products`, {
+      const stockCheck = await fetch(`${"/api"}/products`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (stockCheck.ok) {
@@ -59,7 +59,7 @@ export default function Checkout() {
           throw new Error(`${invalid.name} is out of stock or no longer available`);
         }
       }
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "/api"}/orders`, {
+      const res = await fetch(`${"/api"}/orders`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

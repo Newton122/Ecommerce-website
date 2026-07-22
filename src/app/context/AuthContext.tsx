@@ -26,12 +26,6 @@ const TOKEN_KEY = "blacphics_token";
 const USER_KEY = "blacphics_user";
 
 function getApiUrl() {
-  if (typeof window === "undefined") return "/api";
-  try {
-    if (process.env.NEXT_PUBLIC_API_URL) {
-      return process.env.NEXT_PUBLIC_API_URL;
-    }
-  } catch {}
   return "/api";
 }
 

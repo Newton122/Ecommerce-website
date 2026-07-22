@@ -46,12 +46,12 @@ export default function ProductDetail() {
     const fetchProduct = async () => {
       if (!id) return;
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "/api"}/products/${id}`);
+        const res = await fetch(`${"/api"}/products/${id}`);
         if (!res.ok) throw new Error("Product not found");
         const data = await res.json();
         setProduct(data);
         if (data.category) {
-          const relatedRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "/api"}/products?category=${data.category}`);
+          const relatedRes = await fetch(`${"/api"}/products?category=${data.category}`);
           if (relatedRes.ok) {
             const relatedData = await relatedRes.json();
             const items = relatedData.products || relatedData;
@@ -71,7 +71,7 @@ export default function ProductDetail() {
     const fetchReviews = async () => {
       if (!id) return;
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "/api"}/reviews?productId=${id}`);
+        const res = await fetch(`${"/api"}/reviews?productId=${id}`);
         if (res.ok) {
           const data = await res.json();
           setReviews(Array.isArray(data) ? data : []);
@@ -91,7 +91,7 @@ export default function ProductDetail() {
     setReviewSubmitting(true);
     setReviewError(null);
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "/api"}/reviews`, {
+      const res = await fetch(`${"/api"}/reviews`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

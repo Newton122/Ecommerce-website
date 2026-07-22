@@ -166,7 +166,7 @@ export default function CustomDesign() {
   const handleSubmit = async () => {
     setSubmitting(true);
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "/api";
+      const apiUrl = "/api";
 
       let designImage = previewUrl;
       let mockupImage = mockupSrc;
