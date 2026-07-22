@@ -53,7 +53,7 @@ function isAllowedOrigin(origin: string | undefined): boolean {
   }
   try {
     const url = new URL(origin);
-    if (url.hostname === "vercel.app") {
+    if (url.hostname.endsWith(".vercel.app")) {
       return true;
     }
   } catch {}
@@ -62,13 +62,9 @@ function isAllowedOrigin(origin: string | undefined): boolean {
 
 app.use(
   cors({
-    origin: (origin, callback) => {
-      if (isAllowedOrigin(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
+    origin: "*",
+    methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 app.use(express.json({ limit: "10mb" }));
