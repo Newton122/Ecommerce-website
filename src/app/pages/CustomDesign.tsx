@@ -94,8 +94,32 @@ export default function CustomDesign() {
   const [submitted, setSubmitted] = useState(false);
   const [draggingUpload, setDraggingUpload] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [myRequests, setMyRequests] = useState<DesignRequest[]>([]);
+  const [loadingRequests, setLoadingRequests] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
   const previewContainerRef = useRef<HTMLDivElement>(null);
+
+  interface DesignRequest {
+    id: number;
+    status: string;
+    shirtType: string;
+    shirtColor: string;
+    placement: string;
+    viewSide?: string;
+    createdAt: string;
+  }
+
+  useEffect(() => {
+    if (!token) return;
+    setLoadingRequests(true);
+    fetch("/api/design-requests", {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((r) => r.ok ? r.json() : Promise.reject())
+      .then((data: DesignRequest[]) => setMyRequests(data))
+      .catch(() => {})
+      .finally(() => setLoadingRequests(false));
+  }, [token]);
 
   const handleFile = (file: File) => {
     setUploadedFile(file);
@@ -257,6 +281,25 @@ export default function CustomDesign() {
           <p className="text-white/40 text-sm mb-8" style={{ fontFamily: "Inter, sans-serif" }}>
             Our team will reach out via WhatsApp within 24 hours to confirm details and pricing.
           </p>
+          {!loadingRequests && myRequests.length > 0 && (
+            <div className="mb-6 space-y-2">
+              {myRequests.map((req) => (
+                <div key={req.id} className="flex items-center justify-between rounded-xl border border-white/10 bg-card/80 px-4 py-3">
+                  <span className="text-xs text-white/70" style={{ fontFamily: "Inter, sans-serif" }}>
+                    {req.shirtType} · {req.placement}
+                  </span>
+                  <span className={`text-[10px] font-semibold uppercase tracking-widest px-2 py-0.5 rounded-full ${
+                    req.status === "pending" ? "bg-yellow-500/15 text-yellow-300" :
+                    req.status === "in_progress" ? "bg-blue-500/15 text-blue-300" :
+                    req.status === "completed" ? "bg-green-500/15 text-green-300" :
+                    "bg-red-500/15 text-red-300"
+                  }`}>
+                    {req.status.replace("_", " ")}
+                  </span>
+                </div>
+              ))}
+            </div>
+          )}
           <div className="flex gap-3 justify-center">
             <a
               href="https://wa.me/213791938758?text=Hello%20Blacphics%2C%20I%27m%20interested%20in%20a%20custom%20design"
@@ -276,20 +319,13 @@ export default function CustomDesign() {
             >
               Chat on WhatsApp
             </a>
-            <Link
-              href="/admin/design-requests"
-              className="px-5 py-3 border border-white/15 text-white rounded-xl font-semibold text-sm hover:border-white/30 hover:bg-white/5 transition-all flex items-center gap-2"
-              style={{ fontFamily: "Manrope, sans-serif" }}
-            >
-              View Design Requests
-            </Link>
-            <Link
-              href="/"
-              className="px-5 py-3 border border-white/15 text-white rounded-xl font-semibold text-sm hover:border-white/30 transition-colors"
-              style={{ fontFamily: "Manrope, sans-serif" }}
-            >
-              Go Home
-            </Link>
+             <Link
+               href="/"
+               className="px-5 py-3 border border-white/15 text-white rounded-xl font-semibold text-sm hover:border-white/30 transition-colors"
+               style={{ fontFamily: "Manrope, sans-serif" }}
+             >
+               Go Home
+             </Link>
           </div>
         </div>
       </div>
@@ -311,6 +347,31 @@ export default function CustomDesign() {
             Upload your artwork, configure your order, and we&apos;ll handle the rest. Premium quality, delivered across Algeria.
           </p>
         </div>
+
+        {!loadingRequests && myRequests.length > 0 && (
+          <div className="max-w-2xl mx-auto mb-10 space-y-2">
+            {myRequests.map((req) => (
+              <div key={req.id} className="flex items-center justify-between rounded-xl border border-white/[0.08] bg-card/80 px-4 py-3">
+                <div className="flex items-center gap-3">
+                  <span className="text-xs text-white/60" style={{ fontFamily: "Inter, sans-serif" }}>
+                    {req.shirtType} · {req.placement}
+                  </span>
+                  <span className={`text-[10px] font-semibold uppercase tracking-widest px-2 py-0.5 rounded-full ${
+                    req.status === "pending" ? "bg-yellow-500/15 text-yellow-300" :
+                    req.status === "in_progress" ? "bg-blue-500/15 text-blue-300" :
+                    req.status === "completed" ? "bg-green-500/15 text-green-300" :
+                    "bg-red-500/15 text-red-300"
+                  }`}>
+                    {req.status.replace("_", " ")}
+                  </span>
+                </div>
+                <span className="text-[10px] text-white/40" style={{ fontFamily: "Inter, sans-serif" }}>
+                  {new Date(req.createdAt).toLocaleDateString()}
+                </span>
+              </div>
+            ))}
+          </div>
+        )}
 
         {/* Steps indicator */}
         <div className="flex items-center justify-center gap-0 mb-14">

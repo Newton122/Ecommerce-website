@@ -2,6 +2,7 @@ import { Router, Response } from "express";
 import { prisma } from "../lib/prisma.js";
 import { asyncHandler } from "../middleware/asyncHandler.js";
 import jwt from "jsonwebtoken";
+import { Resend } from "resend";
 
 const router = Router();
 
@@ -26,6 +27,21 @@ async function requireAdminUser(req: any) {
     throw err;
   }
   return user;
+}
+
+const resend = new Resend(process.env.RESEND_API_KEY as string);
+
+async function sendEmail(to: string, subject: string, html: string) {
+  try {
+    await resend.emails.send({
+      from: "Blackphics <no-reply@blackphics.com>",
+      to,
+      subject,
+      html,
+    });
+  } catch (error) {
+    console.error("Failed to send email:", error);
+  }
 }
 
 router.post("/", asyncHandler(async (req: any, res: Response) => {
@@ -111,6 +127,17 @@ router.patch("/:id", asyncHandler(async (req: any, res: Response) => {
         image: existing.designImage,
       },
     });
+
+    if (existing.userEmail) {
+      await sendEmail(
+        existing.userEmail,
+        `Design Request ${status.replace("_", " ")}`,
+        `<p>Hi ${existing.userName || "there"},</p>
+         <p>Your ${existing.shirtType} design request has been marked as <strong>${status.replace("_", " ")}</strong>.</p>
+         <p>We'll be in touch soon.</p>
+         <p>— Blackphics Team</p>`
+      );
+    }
   }
 
   return res.json(updated);
