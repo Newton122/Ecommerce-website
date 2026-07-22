@@ -51,6 +51,12 @@ function isAllowedOrigin(origin: string | undefined): boolean {
       }
     } catch {}
   }
+  try {
+    const url = new URL(origin);
+    if (url.hostname === "vercel.app") {
+      return true;
+    }
+  } catch {}
   return false;
 }
 
