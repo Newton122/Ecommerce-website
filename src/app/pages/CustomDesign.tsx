@@ -303,24 +303,13 @@ export default function CustomDesign() {
             </div>
           )}
           <div className="flex gap-3 justify-center">
-            <a
-              href="https://wa.me/213791938758?text=Hello%20Blacphics%2C%20I%27m%20interested%20in%20a%20custom%20design"
-              className="px-5 py-3 bg-[#25d366] text-white rounded-xl font-bold text-sm flex items-center gap-2 hover:bg-[#20bd5a] transition-colors"
-              style={{ fontFamily: "Manrope, sans-serif" }}
-              onClick={(e) => {
-                e.preventDefault();
-                const appUrl = `whatsapp://send?phone=213791938758&text=${encodeURIComponent("Hello Blacphics, I'm interested in a custom design")}`;
-                const webUrl = `https://wa.me/213791938758?text=${encodeURIComponent("Hello Blacphics, I'm interested in a custom design")}`;
-                try {
-                  window.location.href = appUrl;
-                  setTimeout(() => (window.location.href = webUrl), 600);
-                } catch (err) {
-                  window.location.href = webUrl;
-                }
-              }}
-            >
-              Chat on WhatsApp
-            </a>
+              <a
+                href="https://wa.me/213791938758?text=Hello%20Blacphics%2C%20I%27m%20interested%20in%20a%20custom%20design"
+                className="px-5 py-3 bg-[#25d366] text-white rounded-xl font-bold text-sm flex items-center gap-2 hover:bg-[#20bd5a] transition-colors"
+                style={{ fontFamily: "Manrope, sans-serif" }}
+              >
+                Chat on WhatsApp
+              </a>
              <Link
                href="/"
                className="px-5 py-3 border border-white/15 text-white rounded-xl font-semibold text-sm hover:border-white/30 transition-colors"

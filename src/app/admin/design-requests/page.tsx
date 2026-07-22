@@ -217,7 +217,7 @@ export default function AdminDesignRequests() {
                     </p>
                     {req.userPhone && (
                       <a
-                        href={`https://wa.me/${req.userPhone}`}
+                        href={`https://wa.me/${String(req.userPhone).replace(/[^\d]/g, "")}`}
                         target="_blank"
                         rel="noreferrer"
                         className="inline-flex items-center gap-1 text-[#25d366] text-xs mt-1 hover:underline"

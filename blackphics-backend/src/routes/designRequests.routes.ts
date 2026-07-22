@@ -31,16 +31,23 @@ async function requireAdminUser(req: any) {
 
 const resend = new Resend(process.env.RESEND_API_KEY as string);
 
-async function sendEmail(to: string, subject: string, html: string) {
+async function sendEmail(to: string, subject: string, html: string): Promise<boolean> {
+  if (!process.env.RESEND_API_KEY) {
+    console.error("RESEND_API_KEY is not configured");
+    return false;
+  }
   try {
-    await resend.emails.send({
-      from: "Blackphics <no-reply@blackphics.com>",
+    const data = await resend.emails.send({
+      from: process.env.RESEND_FROM || "Blackphics <no-reply@blackphics.com>",
       to,
       subject,
       html,
     });
+    console.log("Email sent", data.id, "to", to);
+    return true;
   } catch (error) {
-    console.error("Failed to send email:", error);
+    console.error("Failed to send email to", to, error);
+    return false;
   }
 }
 

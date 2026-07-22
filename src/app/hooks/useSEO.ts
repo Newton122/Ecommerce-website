@@ -4,6 +4,7 @@ import { useEffect } from "react";
 
 const DEFAULT_TITLE = "Blacphics — Algeria's Premier Creative Studio";
 const DEFAULT_DESCRIPTION = "Custom apparel, graphic design, photography and branding from Algeria. DTF, screen print, sublimation — any design, any fabric, any quantity.";
+const SITE_URL = "https://ecommerce-blacphics-stigma.vercel.app";
 
 export function useSEO({ title, description, pathname }: { title?: string; description?: string; pathname?: string }) {
   useEffect(() => {
@@ -37,6 +38,14 @@ export function useSEO({ title, description, pathname }: { title?: string; descr
     }
     ogDesc.setAttribute("content", metaDescription);
 
+    let ogUrl = document.querySelector('meta[property="og:url"]');
+    if (!ogUrl) {
+      ogUrl = document.createElement("meta");
+      ogUrl.setAttribute("property", "og:url");
+      document.head.appendChild(ogUrl);
+    }
+    ogUrl.setAttribute("content", `${SITE_URL}${pathname || ""}`);
+
     if (pathname) {
       let canonical = document.querySelector('link[rel="canonical"]');
       if (!canonical) {
@@ -44,7 +53,7 @@ export function useSEO({ title, description, pathname }: { title?: string; descr
         canonical.setAttribute("rel", "canonical");
         document.head.appendChild(canonical);
       }
-      canonical.setAttribute("href", `https://blacphics.com${pathname}`);
+      canonical.setAttribute("href", `${SITE_URL}${pathname}`);
     }
   }, [title, description, pathname]);
 }

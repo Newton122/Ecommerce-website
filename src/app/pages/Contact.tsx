@@ -55,17 +55,6 @@ export default function Contact() {
             <a
               href="https://wa.me/213791938758?text=Hello%20Blacphics%2C%20I%27d%20like%20to%20chat%20about%20a%20project"
               className="flex items-center gap-4 p-5 rounded-2xl bg-gradient-to-r from-primary to-accent text-black hover:brightness-110 transition-all shadow-xl shadow-primary/25 hover:-translate-y-0.5 group"
-              onClick={(e) => {
-                e.preventDefault();
-                const appUrl = `whatsapp://send?phone=213791938758&text=${encodeURIComponent("Hello Blacphics, I'd like to chat about a project")}`;
-                const webUrl = `https://wa.me/213791938758?text=${encodeURIComponent("Hello Blacphics, I'd like to chat about a project")}`;
-                try {
-                  window.location.href = appUrl;
-                  setTimeout(() => (window.location.href = webUrl), 600);
-                } catch (err) {
-                  window.location.href = webUrl;
-                }
-              }}
             >
               <div className="w-12 h-12 rounded-xl bg-[#25d366]/20 flex items-center justify-center shrink-0">
                 <MessageCircle size={24} className="text-[#25d366]" />

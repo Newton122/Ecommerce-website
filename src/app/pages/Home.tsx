@@ -1,6 +1,5 @@
 "use client";
 
-import type { Metadata } from "next";
 import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -10,16 +9,6 @@ import type { Product } from "../data/types";
 import { reviews } from "../data/reviews";
 import { usePromo } from "../context/PromoContext";
 import { useSEO } from "../hooks/useSEO";
-
-export const metadata: Metadata = {
-  title: "Blacphics — Algeria's Premier Creative Studio",
-  description: "Custom apparel, graphic design, photography and branding from Algeria. DTF, screen print, sublimation — any design, any fabric, any quantity.",
-  openGraph: {
-    title: "Blacphics — Algeria's Premier Creative Studio",
-    description: "Custom apparel, graphic design, photography and branding from Algeria.",
-    images: ["https://images.unsplash.com/photo-1780566036313-1f12261769e8?w=1200&h=630&fit=crop&auto=format"],
-  },
-};
 
 const HERO_IMG = "https://images.unsplash.com/photo-1780566036313-1f12261769e8?w=1920&h=1080&fit=crop&auto=format";
 const STORY_IMG = "https://images.unsplash.com/photo-1652809096869-55b40bd14ac1?w=1200&h=900&fit=crop&auto=format";
