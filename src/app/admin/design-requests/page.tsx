@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
-import { Trash2 } from "lucide-react";
+import { Trash2, MessageSquare, Send } from "lucide-react";
 import { toast } from "sonner";
 import {
   AlertDialog,
@@ -14,6 +14,33 @@ import {
   AlertDialogCancel,
   AlertDialogAction,
 } from "../../components/ui/alert-dialog";
+
+interface DesignRequest {
+  id: number;
+  userId?: number;
+  userEmail?: string;
+  userName?: string;
+  userPhone?: string;
+  shirtType: string;
+  shirtColor: string;
+  placement: string;
+  viewSide?: string;
+  designImage: string;
+  mockupImage?: string;
+  mockupVariant?: number;
+  designPosX?: number;
+  designPosY?: number;
+  designRotation?: number;
+  designScale?: number;
+  status: string;
+  createdAt: string;
+}
+
+interface Note {
+  id: number;
+  message: string;
+  createdAt: string;
+}
 
 interface DesignRequest {
   id: number;
@@ -50,6 +77,9 @@ export default function AdminDesignRequests() {
   const [loading, setLoading] = useState(true);
   const [actioningId, setActioningId] = useState<number | null>(null);
   const [pendingDeleteId, setPendingDeleteId] = useState<number | null>(null);
+  const [notesMap, setNotesMap] = useState<Record<number, Note[]>>({});
+  const [noteTextMap, setNoteTextMap] = useState<Record<number, string>>({});
+  const [loadingNotesId, setLoadingNotesId] = useState<number | null>(null);
 
   const load = () => {
     if (!token) return;
@@ -65,6 +95,15 @@ export default function AdminDesignRequests() {
   useEffect(() => {
     load();
   }, [token]);
+
+  useEffect(() => {
+    if (!token || requests.length === 0) return;
+    requests.forEach((req) => {
+      if (!notesMap[req.id]) {
+        loadNotes(req.id);
+      }
+    });
+  }, [token, requests]);
 
   const updateStatus = async (id: number, status: string) => {
     setActioningId(id);
@@ -105,6 +144,47 @@ export default function AdminDesignRequests() {
     }
   };
 
+  const loadNotes = async (id: number) => {
+    if (!token) return;
+    setLoadingNotesId(id);
+    try {
+      const res = await fetch(`/api/design-requests/${id}/notes`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (!res.ok) throw new Error("Failed to load notes");
+      const data = await res.json();
+      setNotesMap((prev) => ({ ...prev, [id]: data }));
+    } catch {
+      // ignore
+    } finally {
+      setLoadingNotesId(null);
+    }
+  };
+
+  const addNote = async (id: number) => {
+    const message = noteTextMap[id];
+    if (!message?.trim()) return;
+    setActioningId(id);
+    try {
+      const res = await fetch(`/api/design-requests/${id}/notes`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ message }),
+      });
+      if (!res.ok) throw new Error("Failed to add note");
+      toast.success("Note added");
+      setNoteTextMap((prev) => ({ ...prev, [id]: "" }));
+      loadNotes(id);
+    } catch {
+      toast.error("Failed to add note. Please try again.");
+    } finally {
+      setActioningId(null);
+    }
+  };
+
   if (!user || user.role !== "admin") {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center text-white">
@@ -135,6 +215,16 @@ export default function AdminDesignRequests() {
                     <p className="text-white/50 text-xs mt-1" style={{ fontFamily: "Inter, sans-serif" }}>
                       {req.shirtColor} · {req.placement} · {req.viewSide || "front"} · {new Date(req.createdAt).toLocaleString()}
                     </p>
+                    {req.userPhone && (
+                      <a
+                        href={`https://wa.me/${req.userPhone}`}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-1 text-[#25d366] text-xs mt-1 hover:underline"
+                      >
+                        <MessageSquare size={12} /> WhatsApp
+                      </a>
+                    )}
                   </div>
                   <div className="flex items-center gap-2">
                     <select
@@ -180,6 +270,39 @@ export default function AdminDesignRequests() {
                   <div className="flex-1 rounded-xl border border-white/[0.08] bg-background/80 p-3">
                     <p className="text-white/50 text-xs uppercase tracking-widest mb-2" style={{ fontFamily: "Inter, sans-serif" }}>Uploaded Design</p>
                     <img src={req.designImage} alt="Design" className="w-full h-48 object-contain rounded-lg" />
+                  </div>
+                </div>
+
+                <div className="rounded-xl border border-white/[0.08] bg-background/80 p-4">
+                  <p className="text-white/50 text-xs uppercase tracking-widest mb-2" style={{ fontFamily: "Inter, sans-serif" }}>Notes</p>
+                  <div className="space-y-2 mb-3">
+                    {(notesMap[req.id] || []).length === 0 && (
+                      <p className="text-white/40 text-xs">No notes yet.</p>
+                    )}
+                    {(notesMap[req.id] || []).map((note) => (
+                      <div key={note.id} className="rounded-lg bg-white/5 border border-white/10 px-3 py-2">
+                        <p className="text-white/90 text-xs" style={{ fontFamily: "Inter, sans-serif" }}>{note.message}</p>
+                        <p className="text-white/40 text-[10px] mt-1">{new Date(note.createdAt).toLocaleString()}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="text"
+                      value={noteTextMap[req.id] || ""}
+                      onChange={(e) => setNoteTextMap((prev) => ({ ...prev, [req.id]: e.target.value }))}
+                      placeholder="Add a note..."
+                      className="flex-1 rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-xs text-white placeholder:text-white/30 outline-none focus:border-primary"
+                      style={{ fontFamily: "Inter, sans-serif" }}
+                    />
+                    <button
+                      onClick={() => addNote(req.id)}
+                      disabled={actioningId === req.id}
+                      className="inline-flex items-center justify-center rounded-lg bg-primary text-black px-3 py-2 disabled:opacity-50"
+                      title="Add note"
+                    >
+                      <Send size={14} />
+                    </button>
                   </div>
                 </div>
               </div>

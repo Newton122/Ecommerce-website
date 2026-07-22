@@ -19,6 +19,7 @@ import Checkout from "./pages/Checkout";
 import FAQ from "./pages/FAQ";
 import OrdersPage from "./pages/OrdersPage";
 import ProfilePage from "./pages/ProfilePage";
+import UserDesignRequests from "./account/design-requests/page";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminProducts from "./pages/AdminProducts";
 import AdminProductForm from "./pages/AdminProductForm";
@@ -114,6 +115,10 @@ export default function AppRouter() {
 
   if (pathname === "/account/profile") {
     return <ProfilePage />;
+  }
+
+  if (pathname === "/account/design-requests") {
+    return <UserDesignRequests />;
   }
 
   if (pathname === "/admin") {

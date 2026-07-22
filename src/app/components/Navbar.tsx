@@ -167,6 +167,12 @@ export default function Navbar() {
                       Profile
                     </Link>
                   </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/account/design-requests">
+                      <Shirt size={14} className="mr-2" />
+                      Design Requests
+                    </Link>
+                  </DropdownMenuItem>
                   {isAdmin && (
                     <>
                       <DropdownMenuSeparator />

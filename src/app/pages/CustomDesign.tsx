@@ -96,6 +96,7 @@ export default function CustomDesign() {
   const [submitting, setSubmitting] = useState(false);
   const [myRequests, setMyRequests] = useState<DesignRequest[]>([]);
   const [loadingRequests, setLoadingRequests] = useState(false);
+  const [userPhone, setUserPhone] = useState("");
   const fileRef = useRef<HTMLInputElement>(null);
   const previewContainerRef = useRef<HTMLDivElement>(null);
 
@@ -189,19 +190,20 @@ export default function CustomDesign() {
           "Content-Type": "application/json",
           ...(token ? { Authorization: `Bearer ${token}` } : {}),
         },
-        body: JSON.stringify({
-          shirtType,
-          shirtColor: shirtColor.name,
-          placement,
-          viewSide,
-          designImage,
-          mockupImage,
-          designPosX: designPos.x,
-          designPosY: designPos.y,
-          mockupVariant,
-          designRotation,
-          designScale,
-        }),
+          body: JSON.stringify({
+            shirtType,
+            shirtColor: shirtColor.name,
+            placement,
+            viewSide,
+            designImage,
+            mockupImage,
+            designPosX: designPos.x,
+            designPosY: designPos.y,
+            mockupVariant,
+            designRotation,
+            designScale,
+            userPhone,
+          }),
       });
 
       if (!response.ok) {
@@ -523,6 +525,19 @@ export default function CustomDesign() {
                     </button>
                   ))}
                 </div>
+              </div>
+
+              {/* Phone */}
+              <div>
+                <p className="text-white/50 text-xs uppercase tracking-widest mb-3" style={{ fontFamily: "Inter, sans-serif" }}>WhatsApp Number (optional)</p>
+                <input
+                  type="tel"
+                  value={userPhone}
+                  onChange={(e) => setUserPhone(e.target.value)}
+                  placeholder="+213 791 938 758"
+                  className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white placeholder:text-white/30 outline-none focus:border-primary transition-colors"
+                  style={{ fontFamily: "Inter, sans-serif" }}
+                />
               </div>
 
               {step < 3 && uploadedFile && (

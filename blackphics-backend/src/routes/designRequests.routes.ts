@@ -45,7 +45,7 @@ async function sendEmail(to: string, subject: string, html: string) {
 }
 
 router.post("/", asyncHandler(async (req: any, res: Response) => {
-  const { shirtType, shirtColor, placement, viewSide, designImage, mockupImage, designPosX, designPosY, mockupVariant, designRotation, designScale } = req.body;
+  const { shirtType, shirtColor, placement, viewSide, designImage, mockupImage, designPosX, designPosY, mockupVariant, designRotation, designScale, userPhone } = req.body;
   const user = await getRequestUser(req);
 
   if (!shirtType || !shirtColor || !placement || !designImage) {
@@ -57,6 +57,7 @@ router.post("/", asyncHandler(async (req: any, res: Response) => {
       userId: user?.id || undefined,
       userEmail: user?.email || req.body.userEmail || null,
       userName: user?.name || req.body.userName || null,
+      userPhone: userPhone || req.body.userPhone || null,
       shirtType,
       shirtColor,
       placement,
@@ -146,14 +147,85 @@ router.patch("/:id", asyncHandler(async (req: any, res: Response) => {
 router.delete("/:id", asyncHandler(async (req: any, res: Response) => {
   await requireAdminUser(req);
   const requestId = Number(req.params.id);
-
   const existing = await prisma.designRequest.findUnique({ where: { id: requestId } });
   if (!existing) {
     return res.status(404).json({ message: "Design request not found" });
   }
-
   await prisma.designRequest.delete({ where: { id: requestId } });
   return res.status(204).send();
+}));
+
+router.post("/:id/notes", asyncHandler(async (req: any, res: Response) => {
+  const admin = await requireAdminUser(req);
+  const requestId = Number(req.params.id);
+  const { message } = req.body;
+
+  if (!message || !message.trim()) {
+    return res.status(400).json({ message: "Note message is required" });
+  }
+
+  const designRequest = await prisma.designRequest.findUnique({ where: { id: requestId } });
+  if (!designRequest) {
+    return res.status(404).json({ message: "Design request not found" });
+  }
+
+  const note = await prisma.designRequestNote.create({
+    data: {
+      designRequestId: requestId,
+      message: message.trim(),
+    },
+  });
+
+  if (designRequest.userId && designRequest.userEmail) {
+    await prisma.notification.create({
+      data: {
+        userId: designRequest.userId,
+        title: "New note on your design request",
+        message: message.trim(),
+        type: "design",
+        href: "/account/design-requests",
+        image: designRequest.designImage,
+      },
+    });
+
+    const appUrl = `whatsapp://send?phone=${designRequest.userPhone || ""}&text=${encodeURIComponent(`Hi ${designRequest.userName || "there"}, we have an update on your ${designRequest.shirtType} design request: ${message.trim()}`)}`;
+    const webUrl = `https://wa.me/${designRequest.userPhone || ""}?text=${encodeURIComponent(`Hi ${designRequest.userName || "there"}, we have an update on your ${designRequest.shirtType} design request: ${message.trim()}`)}`;
+    try {
+      await sendEmail(
+        designRequest.userEmail,
+        "New note on your design request",
+        `<p>Hi ${designRequest.userName || "there"},</p>
+         <p>We have an update on your ${designRequest.shirtType} design request:</p>
+         <blockquote>${message.trim()}</blockquote>
+         <p>— Blackphics Team</p>`
+      );
+    } catch {
+      // email is best effort
+    }
+  }
+
+  res.status(201).json(note);
+}));
+
+router.get("/:id/notes", asyncHandler(async (req: any, res: Response) => {
+  const user = await getRequestUser(req);
+  const requestId = Number(req.params.id);
+
+  const designRequest = await prisma.designRequest.findUnique({ where: { id: requestId } });
+  if (!designRequest) {
+    return res.status(404).json({ message: "Design request not found" });
+  }
+
+  if (!user || (designRequest.userId !== user?.id && user.role !== "admin")) {
+    return res.status(403).json({ message: "Not allowed" });
+  }
+
+  const notes = await prisma.designRequestNote.findMany({
+    where: { designRequestId: requestId },
+    orderBy: { createdAt: "asc" },
+  });
+
+  res.json(notes);
 }));
 
 export default router;
