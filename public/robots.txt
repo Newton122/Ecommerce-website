@@ -1,0 +1,11 @@
+Sitemap: https://ecommerce-blacphics-stigma.vercel.app/sitemap.xml
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /account/
+Disallow: /api/
+Disallow: /custom
+Disallow: /checkout
+Disallow: /mockup
+
+Crawl-delay: 10

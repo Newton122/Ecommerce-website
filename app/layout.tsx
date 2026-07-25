@@ -49,6 +49,7 @@ export const metadata: NextMetadata = {
   },
   alternates: {
     canonical: "https://ecommerce-blacphics-stigma.vercel.app",
+    sitemap: "https://ecommerce-blacphics-stigma.vercel.app/sitemap.xml",
   },
 };
 
