@@ -44,7 +44,7 @@
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│                    FRONTEND (Vite + React)               │
+│                    FRONTEND (Next.js 15)              │
 │  ┌─────────────┐  ┌──────────────────────────────────┐ │
 │  │  AppRouter   │──│  AuthContext / CartContext / ... │ │
 │  │  [client-    │  │  useAuth() / useCart() / use()  │ │
@@ -103,12 +103,13 @@
 ```
 ecommerce_extracted/
 ├── app/                        ← Next.js App Router artifacts (legacy)
-│   ├── layout.tsx              ← Wraps Vite app in Next.js-like layout
-│   ├── page.tsx                ← Re-exports Home page
-│   ├── [...slug]/page.tsx      ← Catch-all that renders AppRouter
-│   └── sitemap.xml/route.ts    ← Sitemap generation route
+│   ├── layout.tsx              ← Root layout with metadata, JSON-LD, providers
+│   ├── page.tsx                ← Home page (renders src/app/pages/Home)
+│   ├── [...slug]/page.tsx      ← Catch-all client-side router
+│   └── sitemap.xml/
+│       └── route.ts            ← Dynamic sitemap.xml generation
 ├── src/
-│   ├── main.tsx                ← Vite entry point (ReactDOM.createRoot)
+│   ├── main.tsx                ← Entry point (ReactDOM.createRoot)
 │   ├── app/
 │   │   ├── App.tsx             ← Root provider: Theme + Cart context
 │   │   ├── AppRouter.tsx       ← Client-side router (popstate-based)
@@ -215,9 +216,9 @@ ecommerce_extracted/
 │   ├── .env                     ← DATABASE_URL, JWT_SECRET, PORT, CORS_ORIGIN
 │   ├── package.json             ← Express, Prisma, bcryptjs, jsonwebtoken, etc.
 │   └── tsconfig.json
-├── vite.config.ts               ← Vite config with aliases, Next.js shims, proxy
-├── tsconfig.json                ← TypeScript config (Vite project)
-└── index.html                   ← Vite HTML entry point
+├── next.config.ts               ← Next.js config (API rewrites to Render backend)
+├── tsconfig.json                ← TypeScript config (Next.js project)
+└── index.html                   ← Next.js HTML entry point
 ```
 
 
@@ -404,7 +405,7 @@ export function asyncHandler(fn: Function) {
 Without this, unhandled promise rejections in async route handlers would crash the server.
 
 ### Prisma Client (`lib/prisma.ts`)
-- Singleton pattern using `globalThis.prisma` to avoid exhausting DB connections during Vite hot reload
+- Singleton pattern using `globalThis.prisma` to avoid exhausting DB connections during Next.js fast refresh
 - Eager connection check on startup (`prisma.$connect()`) that fails loudly in non-production mode
 - Uses `findFirst()` on User table to verify schema exists
 
@@ -747,7 +748,7 @@ cd ../   (or ecommerce_extracted/)
 npm run dev -- --host 0.0.0.0
 ```
 
-The backend starts on `http://localhost:4000` and the frontend on `http://localhost:5173`. The Vite proxy forwards `/api/*` requests to the backend, so the frontend never needs to know the backend port.
+The backend starts on `http://localhost:4000` and the frontend on `http://localhost:3000`. The Next.js rewrites proxy `/api/*` requests to the Render backend, so the frontend never needs to know the backend port.
 
 #### Database Setup (First Time Only)
 ```bash
@@ -790,7 +791,7 @@ CLOUDINARY_API_SECRET= # Required for image uploads
 ### System Design Principles
 
 #### 1. Separate Frontend and Backend
-The frontend (Vite + React) and backend (Express + TypeScript) are completely decoupled. The frontend makes HTTP requests to the backend's REST API. This allows:
+The frontend (Next.js React) and backend (Express + TypeScript) are completely decoupled. The frontend makes HTTP requests to the backend's REST API through rewrites. This allows:
 - Independent deployment (frontend on Vercel, backend on any VPS)
 - Different tech stacks if needed in the future
 - Clear separation of concerns
